@@ -108,29 +108,24 @@ class SingleWishListProduct extends StatelessWidget {
 
                     RichText(
                       text: TextSpan(
-                          text: 'Get it by ',
-                          style: productTextStyle,
-                          children: [
-                            TextSpan(
-                              text: deliveryDate,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff56595A)),
-                            )
-                          ]),
+                        text: 'Nhận nó bằng ',
+                        style: productTextStyle,
+                        children: [
+                          TextSpan(
+                            text: deliveryDate,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff56595A)),
+                          )
+                        ],
+                      ),
                     ),
                     // const SizedBox(height: 4),
                     const Text(
-                      'FREE Delivery by Amazon',
+                      'vận chuyển bởi LuvoxShop',
                       style: productTextStyle,
                     ),
-                    // const SizedBox(height: 4),
-                    const Text(
-                      '7 days Replacement',
-                      style: productTextStyle,
-                    ),
-
                     Row(
                       children: [
                         Expanded(
@@ -143,7 +138,7 @@ class SingleWishListProduct extends StatelessWidget {
                                   backgroundColor: WidgetStatePropertyAll(
                                       Constants.yellowColor)),
                               child: const Text(
-                                'Add to cart',
+                                'Thêm vào giỏ hàng',
                                 style: TextStyle(
                                     color: Colors.black87,
                                     fontWeight: FontWeight.normal),

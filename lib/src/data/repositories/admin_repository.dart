@@ -63,8 +63,8 @@ class AdminRepository {
     try {
       List<String> imageUrls;
 
-       imageUrls =
-           await uploadImages(name: name, category: category, images: images);
+      imageUrls =
+          await uploadImages(name: name, category: category, images: images);
 
       Product product = Product(
           name: name,
@@ -75,6 +75,40 @@ class AdminRepository {
           price: price);
 
       http.Response res = await adminApi.adminAddProduct(product: product);
+
+      if (res.statusCode != 200) {
+        throw Exception(jsonDecode(res.body)['msg']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> adminUpdateProduct({
+    required String id,
+    required String name,
+    required String description,
+    required double price,
+    required int quantity,
+    required String category,
+    required List<File> images,
+  }) async {
+    try {
+      List<String> imageUrls;
+
+      imageUrls =
+          await uploadImages(name: name, category: category, images: images);
+
+      Product product = Product(
+          id: id,
+          name: name,
+          description: description,
+          quantity: quantity,
+          images: imageUrls,
+          category: category,
+          price: price);
+
+      http.Response res = await adminApi.adminUpdateProduct(product: product);
 
       if (res.statusCode != 200) {
         throw Exception(jsonDecode(res.body)['msg']);
@@ -244,7 +278,7 @@ class AdminRepository {
   Future<Map<String, dynamic>> adminGetAnalytics() async {
     try {
       List<Sales> sales;
-      int totalEarnings;
+      double totalEarnings;
 
       http.Response res = await adminApi.adminGetAnalytics();
 
@@ -254,15 +288,16 @@ class AdminRepository {
         totalEarnings = resDecoded['totalEarnings'];
 
         sales = [
-          Sales('Mobiles', resDecoded['mobileEarnings'] ?? 0),
-          Sales('Fashion', resDecoded['fashionEarnings'] ?? 0),
-          Sales('Electronics', resDecoded['electronicsEarnings'] ?? 0),
-          Sales('Home', resDecoded['homeEarnings'] ?? 0),
-          Sales('Beauty', resDecoded['beautyEarnings'] ?? 0),
-          Sales('Appliances', resDecoded['appliancesEarnings'] ?? 0),
-          Sales('Grocery', resDecoded['groceryEarnings'] ?? 0),
-          Sales('Books', resDecoded['booksEarnings'] ?? 0),
-          Sales('Essentials', resDecoded['essentialsEarnings'] ?? 0),
+          Sales('Mobiles', resDecoded['mobileEarnings'].toDouble() ?? 0),
+          Sales('Fashion', resDecoded['fashionEarnings'].toDouble() ?? 0),
+          Sales(
+              'Electronics', resDecoded['electronicsEarnings'].toDouble() ?? 0),
+          Sales('Home', resDecoded['homeEarnings'].toDouble() ?? 0),
+          Sales('Beauty', resDecoded['beautyEarnings'].toDouble() ?? 0),
+          Sales('Appliances', resDecoded['appliancesEarnings'].toDouble() ?? 0),
+          Sales('Grocery', resDecoded['groceryEarnings'].toDouble() ?? 0),
+          Sales('Books', resDecoded['booksEarnings'].toDouble() ?? 0),
+          Sales('Essentials', resDecoded['essentialsEarnings'].toDouble() ?? 0),
         ];
 
         return {

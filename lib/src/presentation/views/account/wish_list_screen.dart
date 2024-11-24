@@ -23,7 +23,7 @@ class WishListScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Your Wish List',
+                'Danh sách yêu thích của bạn',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,

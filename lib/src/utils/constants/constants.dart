@@ -5,21 +5,26 @@ class Constants {
 // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
-      Color(0xff84D8E3),
-      Color(0xffA6E6CE),
+      Color.fromRGBO(248, 124, 210, 0.612),
+      Color.fromRGBO(255, 173, 231, 0.612),
     ],
     // stops: [0.5, 1.0],
   );
   static const addressBarGradient = LinearGradient(
     colors: [
-      Color(0xffB6E8EF),
-      Color(0xffCBF1E2),
+      Color.fromRGBO(243, 117, 205, 0.612),
+      Color.fromRGBO(252, 106, 208, 0.612),
     ],
     stops: [0.5, 1.0],
   );
 
-  static const goldenGradient = LinearGradient(
-      colors: [Color(0xffFFEDBB), Color(0xffFEDC71)], stops: [0.25, 1]);
+  static const lightBlueGradient = LinearGradient(colors: [
+    Color.fromARGB(255, 124, 221, 243),
+    Color.fromARGB(255, 35, 199, 236),
+  ], stops: [
+    0.25,
+    1
+  ]);
 
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const yellowColor = Color(0xffFED813);
@@ -29,6 +34,7 @@ class Constants {
   static const Color greyBackgroundColor = Color(0xffF6F6F6);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+  static const primaryColor = Color.fromRGBO(250, 2, 175, 100);
 
   // categories
   static List<String> productCategories = [
@@ -53,22 +59,49 @@ class Constants {
 
   // category images
   static const List<Map<String, String>> categoryImages = [
-    {'title': 'Mobiles', 'image': 'assets/images/category_images/mobiles.jpeg'},
-    {'title': 'Fashion', 'image': 'assets/images/category_images/fashion.jpeg'},
+    {
+      'title': 'Mobiles',
+      'name': 'Điện thoại',
+      'image': 'assets/images/category_images/mobiles.jpeg'
+    },
+    {
+      'title': 'Fashion',
+      'name': 'Thời trang',
+      'image': 'assets/images/category_images/fashion.jpeg'
+    },
     {
       'title': 'Electronics',
+      'name': 'Điện tử',
       'image': 'assets/images/category_images/electronics.jpeg'
     },
-    {'title': 'Home', 'image': 'assets/images/category_images/home.jpeg'},
-    {'title': 'Beauty', 'image': 'assets/images/category_images/beauty.jpeg'},
+    {
+      'title': 'Home',
+      'name': 'Gia đình',
+      'image': 'assets/images/category_images/home.jpeg',
+    },
+    {
+      'title': 'Beauty',
+      'name': 'Làm đẹp',
+      'image': 'assets/images/category_images/beauty.jpeg',
+    },
     {
       'title': 'Appliances',
+      'name': 'Gia dụng',
       'image': 'assets/images/category_images/appliances.jpeg'
     },
-    {'title': 'Grocery', 'image': 'assets/images/category_images/grocery.jpeg'},
-    {'title': 'Books', 'image': 'assets/images/category_images/books.jpeg'},
+    {
+      'title': 'Grocery',
+      'name': 'Tạp hóa',
+      'image': 'assets/images/category_images/grocery.jpeg',
+    },
+    {
+      'title': 'Books',
+      'name': 'Sách',
+      'image': 'assets/images/category_images/books.jpeg',
+    },
     {
       'title': 'Essentials',
+      'name': 'Thiết yếu',
       'image': 'assets/images/category_images/essentials.jpeg'
     },
   ];
@@ -78,47 +111,47 @@ class Constants {
     {
       'category': 'Mobiles',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265366/carousel_images/bg4c71tkghkwtnxkfx8r.jpg',
+          'https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/desk_header_0abb626df2.png',
     },
     {
       'category': 'Fashion',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265359/carousel_images/lynhzhgccpfb8pbdknyh.jpg',
+          'https://bizweb.dktcdn.net/100/409/545/themes/920095/assets/slider_1.jpg?1730686171178',
     },
     {
       'category': 'Beauty',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265354/carousel_images/ysdubrrkwbi5rqqcupg5.jpg',
+          'https://cdn.nguyenkimmall.com/images/companies/_1/Content/gia-dung/may-say-toc/say-toc-philips-EH-ND11-A645-1.jpg',
     },
     {
       'category': 'Appliances',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265359/carousel_images/lh9urah5mtrd8uolos2m.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/30/e8/30e865f9468a93a0a4fe6e1d5b0869f1.png',
     },
     {
       'category': 'Mobiles',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265358/carousel_images/mvrwbxras7uig7woc5gj.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/4f/05/4f0535baf11e77e892c62ac93b9331ad.png',
     },
     {
       'category': 'Mobiles',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265355/carousel_images/josedcgjkzst3iqnpqgf.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/54/2b/542bada853fc17acea9c6636919dead1.jpg',
     },
     {
       'category': 'Electronics',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265357/carousel_images/nx2nmaq4pbqlebiexqup.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/e5/b8/e5b85cf95b1ece07726c3603ace8b2e9.png',
     },
     {
       'category': 'Electronics',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265358/carousel_images/gvgwvhmodau81bwddsrh.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/5c/3a/5c3aa2950910091fc7c8b6bf0530b5cc.png',
     },
     {
       'category': 'Mobiles',
       'image':
-          'https://res.cloudinary.com/dthljz11q/image/upload/v1699265354/carousel_images/tb0uzkote4twcczih8xj.jpg',
+          'https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/ce/d1/ced1c563b9d0b5342041bae3b818b94e.jpg',
     },
   ];
 
@@ -345,66 +378,75 @@ class Constants {
   static const List<Map<String, String>> productQualityDetails = [
     {
       'iconName': 'replacement.png',
-      'title': '7 days Service Centre Replacement'
+      'title': '7 ngày Trung tâm dịch vụ thay thế'
     },
-    {'iconName': 'free_delivery.png', 'title': 'Free Delivery'},
-    {'iconName': 'warranty.png', 'title': '1 Year Warranty'},
-    {'iconName': 'pay_on_delivery.png', 'title': 'Pay on Delivery'},
-    {'iconName': 'top_brand.png', 'title': 'Top Brand'},
-    {'iconName': 'delivered.png', 'title': 'Amazon Delivered'},
+    {'iconName': 'free_delivery.png', 'title': 'Giao hàng miễn phí'},
+    {'iconName': 'warranty.png', 'title': 'Bảo hành 1 năm'},
+    {'iconName': 'pay_on_delivery.png', 'title': 'Thanh toán khi nhận hàng'},
+    {'iconName': 'top_brand.png', 'title': 'Thương hiệu hàng đầu'},
+    {'iconName': 'delivered.png', 'title': 'Amazon giao hàng'},
   ];
 
   static const List<Map<String, String>> menuScreenImages = [
     {
       'title': 'Mobiles, Smartphones',
+      'name': 'Điện thoại di động',
       'category': 'Mobiles',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008683/menu_screen_images/hpaduzg6ws3gttr1fvqc.png',
     },
     {
       'title': 'Fashion, Clothing',
+      'name': 'Thời trang, Quần áo',
       'category': 'Fashion',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008683/menu_screen_images/kf3f4gsxfrc05iewamt3.png'
     },
     {
       'title': 'Electronics & Audio',
+      'name': 'Điện tử & Âm thanh',
       'category': 'Electronics',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008678/menu_screen_images/kurapdxq9i2n2m6vvdyz.png'
     },
     {
       'title': 'Home, Kitchen & Decor',
+      'name': 'Nhà, Nhà bếp & Trang trí',
       'category': 'Home',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008675/menu_screen_images/jyp9jwyudc0jh6gao2uc.png'
     },
     {
       'title': 'Beauty, Skincare',
+      'name': 'Làm đẹp, Chăm sóc da',
       'category': 'Beauty',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008678/menu_screen_images/b5zl9qkm3cx20eklrfjm.png'
     },
     {
       'title': 'Appliances',
+      'name': 'Thiết bị gia dụng',
       'category': 'Appliances',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008672/menu_screen_images/i8u2o2lknnqhjaybewbr.png'
     },
     {
       'title': 'Grocery, Food & Beverages',
+      'name': 'Cửa hàng tạp hóa',
       'category': 'Grocery',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008681/menu_screen_images/wlad5ab74zzn49iqhkbk.png'
     },
     {
       'title': 'Books, Novels',
+      'name': 'Sách, Tiểu Thuyết',
       'category': 'Books',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008671/menu_screen_images/javbsvmojbp3725oysoo.jpg'
     },
     {
       'title': 'Essentials, Kitchen',
+      'name': 'Thiết yếu, Nhà bếp',
       'category': 'Essentials',
       'image':
           'https://res.cloudinary.com/dthljz11q/image/upload/v1699008683/menu_screen_images/u7lk7kkv4vlra4dhjdnj.png'

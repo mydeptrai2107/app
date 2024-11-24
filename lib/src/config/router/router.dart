@@ -29,8 +29,10 @@ import 'package:flutter_amazon_clone_bloc/src/presentation/views/cart/cart_scree
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/category_products/category_products_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/home/home_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/menu/menu_screen.dart';
+import 'package:flutter_amazon_clone_bloc/src/presentation/views/payment/payment_method_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/payment/payment_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/payment/payment_screen_buy_now.dart';
+import 'package:flutter_amazon_clone_bloc/src/presentation/views/payment/voucher_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/product_details/product_details_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/search/search_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/splash_screen/splash_screen.dart';
@@ -197,12 +199,25 @@ final router = GoRouter(initialLocation: '/', routes: [
         return const MaterialPage(child: CartScreen());
       }),
   GoRoute(
-      name: AppRouteConstants.paymentScreenRoute.name,
-      path: AppRouteConstants.paymentScreenRoute.path,
+    name: AppRouteConstants.paymentScreenRoute.name,
+    path: AppRouteConstants.paymentScreenRoute.path,
+    pageBuilder: (context, state) {
+      double totalAmount = state.extra as double;
+      return MaterialPage(
+          child: PaymentScreen(totalAmount: totalAmount.toString()));
+    },
+  ),
+  GoRoute(
+      path: AppRouteConstants.paymentMethod.path,
+      name: AppRouteConstants.paymentMethod.name,
       pageBuilder: (context, state) {
-        double totalAmount = state.extra as double;
-        return MaterialPage(
-            child: PaymentScreen(totalAmount: totalAmount.toString()));
+        return const MaterialPage(child: PaymentMethodScreen());
+      }),
+  GoRoute(
+      path: AppRouteConstants.voucherScreenRoute.path,
+      name: AppRouteConstants.voucherScreenRoute.name,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: VoucherScreen());
       }),
   GoRoute(
       name: AppRouteConstants.buyNowPaymentScreenRoute.name,
@@ -243,7 +258,24 @@ final router = GoRouter(initialLocation: '/', routes: [
     path: AppRouteConstants.adminAddProductsScreen.path,
     name: AppRouteConstants.adminAddProductsScreen.name,
     pageBuilder: (context, state) {
-      return const MaterialPage(child: AdminAddProductScreen());
+      return const MaterialPage(
+        child: AdminAddProductScreen(),
+      );
+    },
+  ),
+
+  GoRoute(
+    path: AppRouteConstants.adminUpdateProductsScreen.path,
+    name: AppRouteConstants.adminUpdateProductsScreen.name,
+    pageBuilder: (context, state) {
+      Map<String, dynamic> extraData = state.extra as Map<String, dynamic>;
+
+      Product product = extraData['product'] as Product;
+      return MaterialPage(
+        child: AdminAddProductScreen(
+          product: product,
+        ),
+      );
     },
   ),
   GoRoute(

@@ -1,4 +1,4 @@
-const secureUri = 'http://localhost:3000';
+const secureUri = 'http://192.168.2.7:3000';
 String uri = secureUri;
 
 String signUpUrl = '$uri/api/signup';
@@ -47,6 +47,9 @@ String adminGetOrdersUri = '$uri/admin/get-orders';
 String adminChangeOrderStatusUri = '$uri/admin/change-order-status';
 String adminGetAnalyticsUri = '$uri/admin/analytics';
 String adminAddProductsUri = '$uri/admin/add-product';
+String adminUpdateProductsUri = '$uri/admin/update-product';
 String adminAddFourImagesOfferUri = '$uri/admin/add-four-images-offer';
 String adminGetFourImagesOfferUri = '$uri/api/get-four-images-offer';
 String adminDeleteFourImagesOfferUri = '$uri/admin/delete-four-images-offer';
+
+String voucherUri = '$uri/api/vouchers';

@@ -20,7 +20,7 @@ class SearchTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        hintText: 'Search',
+        hintText: 'Tìm kiếm',
         hintStyle: const TextStyle(
             color: Colors.black45, fontWeight: FontWeight.normal),
         constraints: const BoxConstraints(maxHeight: 45, minHeight: 45),
@@ -29,25 +29,6 @@ class SearchTextFormField extends StatelessWidget {
         enabledBorder: textFieldStyle,
         border: textFieldStyle,
         contentPadding: const EdgeInsets.only(top: 3),
-        suffixIcon: const SizedBox(
-          width: 75,
-          child: Row(
-            children: [
-              Icon(
-                Icons.center_focus_strong_outlined,
-                color: Colors.grey,
-              ),
-              Spacer(),
-              Icon(
-                Icons.mic_outlined,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 10,
-              )
-            ],
-          ),
-        ),
       ),
     );
   }

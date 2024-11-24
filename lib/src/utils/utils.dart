@@ -103,13 +103,13 @@ String getStatus(int status) {
 
 String getSubStatus(int status) {
   if (status == 0 || status == 1) {
-    return 'Your order has been received and is currently being processed by the seller.';
+    return 'Đơn hàng của bạn đã được nhận và hiện đang được người bán xử lý.';
   } else if (status == 2) {
-    return 'Your order has been shipped and dispatched.';
+    return 'Đơn hàng của bạn đã được vận chuyển và gửi đi.';
   } else if (status == 3) {
-    return 'Your order is currently in transit.';
+    return 'Đơn hàng của bạn hiện đang trong quá trình vận chuyển.';
   } else if (status == 4) {
-    return 'Your order has been delivered.';
+    return 'Đơn hàng của bạn đã được giao.';
   }
   return '';
 }

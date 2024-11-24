@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/admin/admin_add_offers/four-images-offer/admin_four_image_offer_cubit.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/home_blocs/carousel_bloc/carousel_image_bloc.dart';
-import 'package:flutter_amazon_clone_bloc/src/logic/blocs/user_cubit/user_cubit.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/common_widgets/custom_app_bar.dart';
-import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/home/address_bar.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/home/carousel_image.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/home/deal_of_the_day.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/home/multi_image_offer.dart';
@@ -35,21 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              BlocBuilder<UserCubit, UserState>(
-                builder: (context, state) {
-                  if (state is UserSuccessS) {
-                    return state.user.address == ''
-                        ? const SizedBox()
-                        : const AddressBar();
-                  }
-                  return const SizedBox();
-                },
-              ),
               const TopCategories(),
               CarouselImage(),
               Container(
                 decoration:
-                    const BoxDecoration(gradient: Constants.goldenGradient),
+                    const BoxDecoration(gradient: Constants.lightBlueGradient),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
@@ -68,20 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, state) {
                           if (state is AdminGetFourImageOfferSuccessS) {
                             return ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: state.fourImagesOfferList.length,
-                                itemBuilder: ((context, index) {
-                                  final offer =
-                                      state.fourImagesOfferList[index];
-
-                                  return MultiImageOffer(
-                                    title: offer.title,
-                                    category: offer.category,
-                                    images: offer.images,
-                                    labels: offer.labels,
-                                  );
-                                }));
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.fourImagesOfferList.length,
+                              itemBuilder: ((context, index) {
+                                final offer = state.fourImagesOfferList[index];
+                                return MultiImageOffer(
+                                  title: offer.title,
+                                  category: offer.category,
+                                  images: offer.images,
+                                  labels: offer.labels,
+                                );
+                              }),
+                            );
                           } else {
                             context
                                 .read<AdminFourImageOfferCubit>()

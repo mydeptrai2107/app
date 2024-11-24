@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/four_images_offer.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/admin_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'admin_four_image_offer_state.dart';
 
@@ -35,6 +36,9 @@ class AdminFourImageOfferCubit extends Cubit<AdminFourImageOfferState> {
   }
 
   Future<void> adminGetFourImagesOffer({required bool isUser}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return;
     try {
       emit(AdminFourImageOfferLoadingS());
 

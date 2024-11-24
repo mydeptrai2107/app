@@ -25,7 +25,7 @@ class YourOrders extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               child: Text(
-                'Your Orders',
+                'Đơn đặt hàng của bạn',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
@@ -44,10 +44,11 @@ class YourOrders extends StatelessWidget {
                 child: TextFormField(
                   onFieldSubmitted: (orderQuery) {
                     context.pushNamed(
-                        AppRouteConstants.searchOrdersScreenRoute.name,
-                        pathParameters: {
-                          'orderQuery': orderQuery,
-                        });
+                      AppRouteConstants.searchOrdersScreenRoute.name,
+                      pathParameters: {
+                        'orderQuery': orderQuery,
+                      },
+                    );
                   },
                   decoration: InputDecoration(
                       prefixIcon: const Icon(
@@ -73,7 +74,7 @@ class YourOrders extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              'Filter',
+                              'Lọc',
                               style: TextStyle(
                                   fontSize: 16, color: Colors.black87),
                             ),
@@ -85,7 +86,7 @@ class YourOrders extends StatelessWidget {
                           ],
                         ),
                       ),
-                      hintText: 'Search all orders',
+                      hintText: 'Tìm kiếm tất cả các đơn đặt hàng',
                       hintStyle: const TextStyle(
                           color: Colors.black54, fontWeight: FontWeight.normal),
                       prefixIconColor: Constants.selectedNavBarColor,

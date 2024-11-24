@@ -24,14 +24,14 @@ class TrackingDetailsBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Delivery by Amazon',
+            'Giao hàng bởi LovuxShop',
             style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87),
           ),
           Text(
-            ' Order ID: ${order.id}',
+            ' ID đơn hàng: ${order.id}',
             style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -47,10 +47,16 @@ class TrackingDetailsBottomSheet extends StatelessWidget {
             builder: (context, state) {
               if (state is AdminChangeOrderStatusSuccessS) {
                 return StepperWidget(
-                    currentStep: state.status, user: user, order: order);
+                  currentStep: state.status,
+                  user: user,
+                  order: order,
+                );
               }
               return StepperWidget(
-                  currentStep: order.status, user: user, order: order);
+                currentStep: order.status,
+                user: user,
+                order: order,
+              );
             },
           ),
         ],
@@ -76,49 +82,55 @@ class StepperWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Stepper(
-          physics: const NeverScrollableScrollPhysics(),
-          currentStep: currentStep,
-          controlsBuilder: ((context, details) {
-            if (user.type == 'admin') {
-              return CustomElevatedButton(
-                  buttonText: 'Done',
-                  onPressed: () {
-                    context
-                        .read<AdminChangeOrderStatusCubit>()
-                        .adminChangeOrderStatus(
-                            orderId: order.id, status: order.status + 1);
-                  });
-            }
-            return const SizedBox();
-          }),
-          steps: [
-            Step(
-              title: const Text('Received'),
-              content: const Text(
-                  'Your order has been received and is currently being processed by the seller.'),
-              isActive: currentStep > 0,
-              state: currentStep > 0 ? StepState.complete : StepState.indexed,
-            ),
-            Step(
-              title: const Text('Dispatched'),
-              content:
-                  const Text('Your order has been shipped and dispatched.'),
-              isActive: currentStep > 1,
-              state: currentStep > 1 ? StepState.complete : StepState.indexed,
-            ),
-            Step(
-              title: const Text('In Transit'),
-              content: const Text('Your order is currently in transit.'),
-              isActive: currentStep > 2,
-              state: currentStep > 2 ? StepState.complete : StepState.indexed,
-            ),
-            Step(
-              title: const Text('Delivered'),
-              content: const Text('Your order has been delivered.'),
-              isActive: currentStep > 3,
-              state: currentStep > 3 ? StepState.complete : StepState.indexed,
-            ),
-          ]),
+        physics: const NeverScrollableScrollPhysics(),
+        currentStep: currentStep == 4 ? 3 : currentStep,
+        controlsBuilder: ((context, details) {
+          if (user.type == 'admin' && currentStep < 4) {
+            return CustomElevatedButton(
+              buttonText: 'Xong',
+              onPressed: () {
+                if (currentStep == 4) return;
+                context
+                    .read<AdminChangeOrderStatusCubit>()
+                    .adminChangeOrderStatus(
+                      orderId: order.id,
+                      status: currentStep + 1,
+                    );
+              },
+            );
+          }
+          return const SizedBox();
+        }),
+        steps: [
+          Step(
+            title: const Text('Received'),
+            content: const Text(
+                'Đơn hàng của bạn đã được nhận và hiện đang được người bán xử lý.'),
+            isActive: currentStep > 0,
+            state: currentStep > 0 ? StepState.complete : StepState.indexed,
+          ),
+          Step(
+            title: const Text('Đã gửi đi'),
+            content: const Text(
+                'Đơn đặt hàng của bạn đã được vận chuyển và gửi đi.'),
+            isActive: currentStep > 1,
+            state: currentStep > 1 ? StepState.complete : StepState.indexed,
+          ),
+          Step(
+            title: const Text('Đang chuyển tuyến'),
+            content:
+                const Text('Đơn đặt hàng của bạn hiện đang được vận chuyển.'),
+            isActive: currentStep > 2,
+            state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          ),
+          Step(
+            title: const Text('Đã giao hàng'),
+            content: const Text('Đơn đặt hàng của bạn đã được giao.'),
+            isActive: currentStep > 3,
+            state: currentStep > 3 ? StepState.complete : StepState.indexed,
+          ),
+        ],
+      ),
     );
   }
 }

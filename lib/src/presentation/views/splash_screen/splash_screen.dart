@@ -18,14 +18,12 @@ class SplashScreen extends StatelessWidget {
         if (state is PageRedirectionSuccess) {
           if (state.userType == 'admin') {
             context.goNamed(AppRouteConstants.adminBottomBarRoute.name);
-          } else if (state.userType == '' || state.userType == 'invalid') {
-            context.goNamed(AppRouteConstants.authRoute.name);
           } else {
             context.goNamed(AppRouteConstants.bottomBarRoute.name);
           }
         }
         if (state is PageRedirectionInvalid) {
-          context.goNamed(AppRouteConstants.authRoute.name);
+          context.goNamed(AppRouteConstants.bottomBarRoute.name);
         }
       }, builder: ((context, state) {
         return Scaffold(

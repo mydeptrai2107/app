@@ -18,7 +18,7 @@ class CustomerReviews extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Customer ratings',
+          'Đánh giá của khách hàng',
           style: TextStyle(
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
         ),
@@ -30,7 +30,7 @@ class CustomerReviews extends StatelessWidget {
               size: 22,
             ),
             const SizedBox(width: 5),
-            Text('${averageRating.toStringAsFixed(1)} out of 5',
+            Text('${averageRating.toStringAsFixed(1)} trên 5',
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -40,7 +40,7 @@ class CustomerReviews extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          '${product.rating!.length.toString()} global ratings',
+          '${product.rating!.length.toString()} xếp hạng toàn cầu',
           style: const TextStyle(
             color: Colors.black54,
             fontSize: 16,

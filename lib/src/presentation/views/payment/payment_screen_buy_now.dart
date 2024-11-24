@@ -65,13 +65,12 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    'SubTotal ',
+                    'Tổng tạm tính ',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.normal,
                         color: Colors.black87),
                   ),
-                  
                   Text(
                     formatPriceWithDecimal(
                         double.parse(widget.product.price.toString())),
@@ -113,7 +112,7 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                                 height: 20,
                               ),
                               const Text(
-                                'OR',
+                                'HOẶC',
                                 style: TextStyle(fontSize: 18),
                               ),
                             ],
@@ -131,7 +130,7 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                   children: [
                     CustomTextfield(
                       controller: flatBuildingController,
-                      hintText: 'Flat, house no, building',
+                      hintText: 'Căn hộ, số nhà, tòa nhà',
                       onChanged: (string) {
                         context.read<PlaceOrderBuyNowCubit>().addPaymentItem(
                             totalAmount: widget.product.price.toString());
@@ -139,15 +138,15 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                     ),
                     CustomTextfield(
                       controller: areaController,
-                      hintText: 'Area, street',
+                      hintText: 'Khu vực, đường phố',
                     ),
                     CustomTextfield(
                       controller: pincodeController,
-                      hintText: 'Pincode',
+                      hintText: 'Mã pin',
                     ),
                     CustomTextfield(
                       controller: cityController,
-                      hintText: 'Town/city',
+                      hintText: 'Thị trấn/thành phố',
                     ),
                     const SizedBox(
                       height: 5,
@@ -156,85 +155,88 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                 ),
               ),
               FutureBuilder<PaymentConfiguration>(
-                  future: _googlePayConfigFuture,
-                  builder: (context, snapshot) => snapshot.hasData
-                      ? BlocConsumer<PlaceOrderBuyNowCubit,
-                          PlaceOrderBuyNowState>(
-                          listener: (context, state) {
-                            if (state is PlaceOrderBuyNowErrorS) {
-                              showSnackBar(context, state.errorString);
-                            }
-                          },
-                          builder: (context, state) {
-                            if (state is PlaceOrderBuyNowProcessS) {
-                              return GooglePayButton(
-                                onPressed: () {
-                                  addressToBeUsed = '';
-                                  bool isFromForm =
-                                      flatBuildingController.text.isNotEmpty ||
-                                          areaController.text.isNotEmpty ||
-                                          pincodeController.text.isNotEmpty ||
-                                          cityController.text.isNotEmpty;
+                future: _googlePayConfigFuture,
+                builder: (context, snapshot) => snapshot.hasData
+                    ? BlocConsumer<PlaceOrderBuyNowCubit,
+                        PlaceOrderBuyNowState>(
+                        listener: (context, state) {
+                          if (state is PlaceOrderBuyNowErrorS) {
+                            showSnackBar(context, state.errorString);
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is PlaceOrderBuyNowProcessS) {
+                            return GooglePayButton(
+                              onPressed: () {
+                                addressToBeUsed = '';
+                                bool isFromForm =
+                                    flatBuildingController.text.isNotEmpty ||
+                                        areaController.text.isNotEmpty ||
+                                        pincodeController.text.isNotEmpty ||
+                                        cityController.text.isNotEmpty;
 
-                                  if (isFromForm) {
-                                    if (_addressFormKey.currentState!
-                                        .validate()) {
-                                      addressToBeUsed =
-                                          '${flatBuildingController.text}, ${areaController.text}, ${cityController.text}, ${pincodeController.text}';
-                                    } else {
-                                      throw Exception(
-                                          'Please enter all the values');
-                                    }
-                                  } else if (addressToBeUsed.isEmpty) {
-                                    addressToBeUsed = state.user.address;
+                                if (isFromForm) {
+                                  if (_addressFormKey.currentState!
+                                      .validate()) {
+                                    addressToBeUsed =
+                                        '${flatBuildingController.text}, ${areaController.text}, ${cityController.text}, ${pincodeController.text}';
                                   } else {
-                                    showSnackBar(context, 'ERROR');
+                                    throw Exception(
+                                        'Vui lòng nhập tất cả các giá trị');
                                   }
-                                },
-                                width: double.infinity,
-                                height: 50,
-                                paymentConfiguration: snapshot.data!,
-                                paymentItems: state.paymentItems,
-                                type: GooglePayButtonType.order,
-                                margin: const EdgeInsets.only(top: 15.0),
-                                onPaymentResult: (res) {
-                                  showSnackBar(context, 'Order placed!');
-                                  if (state.user.address == '') {
-                                    context.read<UserCubit>().saveUserAddress(
-                                        address: addressToBeUsed);
-                                  }
+                                } else if (addressToBeUsed.isEmpty) {
+                                  addressToBeUsed = state.user.address;
+                                } else {
+                                  showSnackBar(context, 'ERROR');
+                                }
+                              },
+                              width: double.infinity,
+                              height: 50,
+                              paymentConfiguration: snapshot.data!,
+                              paymentItems: state.paymentItems,
+                              type: GooglePayButtonType.order,
+                              margin: const EdgeInsets.only(top: 15.0),
+                              onPaymentResult: (res) {
+                                showSnackBar(context, 'Đặt hàng đã được đặt!');
+                                if (state.user.address == '') {
+                                  context.read<UserCubit>().saveUserAddress(
+                                      address: addressToBeUsed);
+                                }
 
-                                  context
-                                      .read<PlaceOrderBuyNowCubit>()
-                                      .placeOrderBuyNow(
-                                          product: widget.product,
-                                          address: addressToBeUsed);
-                                  Navigator.pop(context);
-                                },
-                                loadingIndicator: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            }
-                            if (state is DisableButtonS) {
-                              return GPayDisabledButton(
-                                  flatBuildingController:
-                                      flatBuildingController,
-                                  areaController: areaController,
-                                  pincodeController: pincodeController,
-                                  cityController: cityController,
-                                  addressFormKey: _addressFormKey);
-                            }
-
+                                context
+                                    .read<PlaceOrderBuyNowCubit>()
+                                    .placeOrderBuyNow(
+                                      product: widget.product,
+                                      address: addressToBeUsed,
+                                    );
+                                Navigator.pop(context);
+                              },
+                              loadingIndicator: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          }
+                          if (state is DisableButtonS) {
                             return GPayDisabledButton(
-                                flatBuildingController: flatBuildingController,
-                                areaController: areaController,
-                                pincodeController: pincodeController,
-                                cityController: cityController,
-                                addressFormKey: _addressFormKey);
-                          },
-                        )
-                      : const SizedBox.shrink()),
+                              flatBuildingController: flatBuildingController,
+                              areaController: areaController,
+                              pincodeController: pincodeController,
+                              cityController: cityController,
+                              addressFormKey: _addressFormKey,
+                            );
+                          }
+
+                          return GPayDisabledButton(
+                            flatBuildingController: flatBuildingController,
+                            areaController: areaController,
+                            pincodeController: pincodeController,
+                            cityController: cityController,
+                            addressFormKey: _addressFormKey,
+                          );
+                        },
+                      )
+                    : const SizedBox.shrink(),
+              ),
             ],
           ),
         ),
@@ -268,7 +270,7 @@ class GPayDisabledButton extends StatelessWidget {
       hoverElevation: 0,
       highlightElevation: 0,
       onPressed: () {
-        showSnackBar(context, 'Please enter your address');
+        showSnackBar(context, 'Vui lòng nhập địa chỉ của bạn');
       },
       constraints: const BoxConstraints(maxHeight: 50, minHeight: 50),
       shape: RoundedRectangleBorder(
@@ -282,7 +284,7 @@ class GPayDisabledButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Order with ',
+            'Đặt hàng với ',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Image.asset(
@@ -291,7 +293,7 @@ class GPayDisabledButton extends StatelessWidget {
             width: 35,
           ),
           const Text(
-            'Pay',
+            'Thanh toán',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],

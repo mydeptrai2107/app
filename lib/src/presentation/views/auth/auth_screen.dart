@@ -42,6 +42,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     return Scaffold(
       backgroundColor: Constants.greyBackgroundColor,
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -58,7 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   dimension: 12,
                 ),
                 const Text(
-                  'Welcome',
+                  'Chào mừng',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox.square(
@@ -94,26 +95,30 @@ class _AuthScreenState extends State<AuthScreen> {
                                         }),
                                   ),
                                   title: RichText(
-                                    text: const TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Create account. ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: 'New to Amazon?',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black87),
-                                      )
-                                    ]),
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Tạo tài khoản. ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: 'Mới sử dụng LuvoxShop?',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black87),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   onTap: () {
                                     context.read<RadioBloc>().add(
-                                        const RadioChangedEvent(
-                                            auth: Auth.signUp));
+                                          const RadioChangedEvent(
+                                            auth: Auth.signUp,
+                                          ),
+                                        );
                                   },
                                 ),
                                 Form(
@@ -121,7 +126,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   child: Column(children: [
                                     CustomTextfield(
                                       controller: _nameController,
-                                      hintText: 'First and last name',
+                                      hintText: 'Họ và tên',
                                       onChanged: (value) {
                                         context.read<AuthBloc>().add(
                                             TextFieldChangedEvent(
@@ -143,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     ),
                                     CustomTextfield(
                                       controller: _passwordController,
-                                      hintText: 'Set password',
+                                      hintText: 'Đặt mật khẩu',
                                       onChanged: (value) {
                                         context.read<AuthBloc>().add(
                                             TextFieldChangedEvent(
@@ -180,7 +185,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                                   width: 15,
                                                 ),
                                                 const Text(
-                                                    '  All fields are required.'),
+                                                  '  Tất cả các trường là bắt buộc.',
+                                                ),
                                               ],
                                             );
                                           }
@@ -214,7 +220,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                           );
                                         } else {
                                           return CustomElevatedButton(
-                                            buttonText: 'Create account',
+                                            buttonText: 'Tạo tài khoản',
                                             onPressed: () {
                                               if (_signUpFormKey.currentState!
                                                   .validate()) {
@@ -222,13 +228,12 @@ class _AuthScreenState extends State<AuthScreen> {
                                                 BlocProvider.of<AuthBloc>(
                                                         context)
                                                     .add(
-                                                        CreateAccountPressedEvent(
-                                                            _nameController
-                                                                .text,
-                                                            _emailController
-                                                                .text,
-                                                            _passwordController
-                                                                .text));
+                                                  CreateAccountPressedEvent(
+                                                    _nameController.text,
+                                                    _emailController.text,
+                                                    _passwordController.text,
+                                                  ),
+                                                );
                                               }
                                             },
                                           );
@@ -261,26 +266,30 @@ class _AuthScreenState extends State<AuthScreen> {
                                         }),
                                   ),
                                   title: RichText(
-                                    text: const TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Sign in. ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: 'Already a customer?',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black87),
-                                      ),
-                                    ]),
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Đăng nhập. ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: 'Đã là khách hàng?',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black87),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   onTap: () {
                                     context.read<RadioBloc>().add(
-                                        const RadioChangedEvent(
-                                            auth: Auth.signIn));
+                                          const RadioChangedEvent(
+                                            auth: Auth.signIn,
+                                          ),
+                                        );
                                   },
                                 ),
                               ],
@@ -313,26 +322,30 @@ class _AuthScreenState extends State<AuthScreen> {
                                         }),
                                   ),
                                   title: RichText(
-                                    text: const TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Create account. ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: 'New to Amazon?',
-                                        style: TextStyle(
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Tạo tài khoản. ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: 'Mới sử dụng LuvoxShop?',
+                                          style: TextStyle(
                                             fontSize: 13,
-                                            color: Colors.black87),
-                                      )
-                                    ]),
+                                            color: Colors.black87,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   onTap: () {
                                     context.read<RadioBloc>().add(
-                                        const RadioChangedEvent(
-                                            auth: Auth.signUp));
+                                          const RadioChangedEvent(
+                                              auth: Auth.signUp),
+                                        );
                                   },
                                 ),
                               ])),
@@ -340,8 +353,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             padding: const EdgeInsets.only(
                                 bottom: 10, right: 8, left: 8),
                             decoration: BoxDecoration(
-                                color: Constants.backgroundColor,
-                                borderRadius: BorderRadius.circular(6)),
+                              color: Constants.backgroundColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                             child: Column(
                               children: [
                                 ListTile(
@@ -349,24 +363,26 @@ class _AuthScreenState extends State<AuthScreen> {
                                   leading: SizedBox.square(
                                     dimension: 12,
                                     child: Radio(
-                                        value: Auth.signIn,
-                                        groupValue: state.auth,
-                                        onChanged: (Auth? val) {
-                                          context.read<RadioBloc>().add(
-                                              RadioChangedEvent(auth: val!));
-                                        }),
+                                      value: Auth.signIn,
+                                      groupValue: state.auth,
+                                      onChanged: (Auth? val) {
+                                        context
+                                            .read<RadioBloc>()
+                                            .add(RadioChangedEvent(auth: val!));
+                                      },
+                                    ),
                                   ),
                                   title: RichText(
                                     text: const TextSpan(children: [
                                       TextSpan(
-                                        text: 'Sign in. ',
+                                        text: 'Đăng nhập. ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 17,
                                             color: Colors.black),
                                       ),
                                       TextSpan(
-                                        text: 'Already a customer?',
+                                        text: 'Đã là khách hàng?',
                                         style: TextStyle(
                                             fontSize: 13,
                                             color: Colors.black87),
@@ -375,8 +391,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                   ),
                                   onTap: () {
                                     context.read<RadioBloc>().add(
-                                        const RadioChangedEvent(
-                                            auth: Auth.signIn));
+                                          const RadioChangedEvent(
+                                            auth: Auth.signIn,
+                                          ),
+                                        );
                                   },
                                 ),
                                 Form(
@@ -388,7 +406,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                           hintText: 'Email'),
                                       CustomTextfield(
                                           controller: _passwordController,
-                                          hintText: 'Password'),
+                                          hintText: 'Mật khẩu'),
                                       const SizedBox.square(
                                         dimension: 6,
                                       ),
@@ -396,7 +414,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         listener: (context, state) {
                                           if (state is AuthErrorState) {
                                             showSnackBar(
-                                                context, state.errorString);
+                                              context,
+                                              state.errorString,
+                                            );
                                           }
                                           if (state is SignInSuccessState) {
                                             BlocProvider.of<UserCubit>(context)
@@ -422,16 +442,18 @@ class _AuthScreenState extends State<AuthScreen> {
                                             );
                                           } else {
                                             return CustomElevatedButton(
-                                              buttonText: 'Continue',
+                                              buttonText: 'Tiếp tục',
                                               onPressed: () {
                                                 if (_signInFormKey.currentState!
                                                     .validate()) {
                                                   BlocProvider.of<AuthBloc>(
                                                           context)
-                                                      .add(SignInPressedEvent(
-                                                          _emailController.text,
-                                                          _passwordController
-                                                              .text));
+                                                      .add(
+                                                    SignInPressedEvent(
+                                                      _emailController.text,
+                                                      _passwordController.text,
+                                                    ),
+                                                  );
                                                 }
                                               },
                                             );
@@ -468,12 +490,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       customTextButton(buttonText: 'Privacy Notice'),
                       customTextButton(buttonText: 'Help'),
                     ]),
-                const Center(
-                  child: Text(
-                    '© 1996-2023, Amazon.com, Inc. or its affiliates',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ),
+
                 const SizedBox.square(
                   dimension: 20,
                 ),

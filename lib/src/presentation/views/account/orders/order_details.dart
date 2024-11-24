@@ -54,7 +54,7 @@ class OrderDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'View order details',
+                  'Xem chi tiết đơn hàng',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -71,13 +71,11 @@ class OrderDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        'Order date        ${formatDate(order.orderedAt)}',
+                        'Ngày đặt hàng: ${formatDate(order.orderedAt)}',
                         style: textStyle,
                       ),
-                      Text('Order #              ${order.id}',
-                          style: textStyle),
-                      Text(
-                          'Order total        đ${formatPrice(order.totalPrice)}',
+                      Text('Đơn hàng: #${order.id}', style: textStyle),
+                      Text('Tổng đơn hàng: ${formatPrice(order.totalPrice)}đ',
                           style: textStyle),
                     ],
                   ),
@@ -87,7 +85,7 @@ class OrderDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Text('Shipment details', style: headingTextSyle),
+            const Text('Chi tiết lô hàng', style: headingTextSyle),
             const SizedBox(
               height: 6,
             ),
@@ -162,7 +160,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                                   height: 8,
                                                 ),
                                                 Text(
-                                                    'Qty. ${order.quantity[index]}'),
+                                                    'Số lượng. ${order.quantity[index]}'),
                                               ],
                                             ),
                                           ),
@@ -181,7 +179,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       const Text(
-                                        'Your rating',
+                                        'Đánh giá của bạn',
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
@@ -271,8 +269,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   },
                   title: Text(
                     user.type == 'user'
-                        ? 'Track shipment'
-                        : 'Update shipment (admin)',
+                        ? 'Theo dõi lô hàng'
+                        : 'Cập nhật lô hàng (quản trị viên)',
                     style: user.type == 'user'
                         ? textStyle
                         : textStyle.copyWith(color: Constants.greenColor),
@@ -298,45 +296,54 @@ class OrderDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Payment information',
+                  'Thông tin thanh toán',
                   style: headingTextSyle,
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
                 Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 14),
-                    alignment: Alignment.centerLeft,
-                    decoration: containerDecoration.copyWith(
-                      border: const Border(
-                          left: BorderSide(color: Colors.black12, width: 1),
-                          right: BorderSide(color: Colors.black12, width: 1),
-                          top: BorderSide(color: Colors.black12, width: 1),
-                          bottom: BorderSide(color: Colors.black12, width: 0)),
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment Method',
-                          style: textStyle.copyWith(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600),
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                  alignment: Alignment.centerLeft,
+                  decoration: containerDecoration.copyWith(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5)),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Phương thức thanh toán',
+                              style: textStyle.copyWith(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              order.payMethod == 'cod'
+                                  ? 'Thanh toán khi giao hàng'
+                                  : 'Thanh toán với ZaloPay',
+                              style: textStyle.copyWith(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Google Pay',
-                          style: textStyle.copyWith(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.normal,
-                          ),
+                      ),
+                      Text(
+                        !order.paid ? 'Chưa thanh toán' : 'Đã thanh toán',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: !order.paid ? Colors.red : Colors.green,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   width: double.infinity,
                   padding:
@@ -350,7 +357,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Billing Address',
+                        'Địa chỉ thanh toán',
                         style: textStyle.copyWith(
                             color: Colors.black87, fontWeight: FontWeight.w600),
                       ),
@@ -372,7 +379,7 @@ class OrderDetailsScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Shipping Address', style: headingTextSyle),
+                const Text('Địa chỉ giao hàng', style: headingTextSyle),
                 const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -406,7 +413,7 @@ class OrderDetailsScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Order Summary', style: headingTextSyle),
+                const Text('Tóm tắt đơn hàng', style: headingTextSyle),
                 const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -416,17 +423,17 @@ class OrderDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         OrderSummaryRow(
-                          firstText: 'Items:',
+                          firstText: 'Mặt hàng:',
                           secondText: totalQuantity.toString(),
                           textSyle: textStyle,
                         ),
                         const OrderSummaryRow(
-                          firstText: 'Postage & Packing:',
+                          firstText: 'Bưu chính & Đóng gói:',
                           secondText: 'đ0',
                           textSyle: textStyle,
                         ),
                         OrderSummaryRow(
-                          firstText: 'Sub total:',
+                          firstText: 'Tổng phụ:',
                           secondText:
                               'đ${formatPriceWithDecimal(order.totalPrice)}',
                           textSyle: textStyle,
@@ -435,7 +442,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Order Total:',
+                              'Tổng đơn hàng:',
                               style: headingTextSyle,
                             ),
                             Text(

@@ -120,7 +120,7 @@ class CartProduct extends StatelessWidget {
                       ],
                     ),
                     const Text(
-                      'Eligible for FREE Shipping',
+                      'Đủ điều kiện để được MIỄN PHÍ Vận chuyển',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 14,
@@ -128,17 +128,10 @@ class CartProduct extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'In stock',
+                      'Còn hàng',
                       style: TextStyle(
                         fontSize: 14,
                         color: Constants.greenColor,
-                      ),
-                    ),
-                    Text(
-                      '7 days Replacement',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Constants.selectedNavBarColor,
                       ),
                     ),
                     const SizedBox(
@@ -147,7 +140,7 @@ class CartProduct extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextButton(
-                            buttonText: 'Delete',
+                            buttonText: 'Xóa bỏ',
                             onPressed: () {
                               context
                                   .read<CartBloc>()
@@ -156,7 +149,7 @@ class CartProduct extends StatelessWidget {
                               // deleteProduct(product);
                             }),
                         CustomTextButton(
-                            buttonText: 'Save for later',
+                            buttonText: 'Lưu lại sau',
                             onPressed: () {
                               context
                                   .read<CartBloc>()
@@ -166,7 +159,7 @@ class CartProduct extends StatelessWidget {
                       ],
                     ),
                     CustomTextButton(
-                        buttonText: 'See more like this',
+                        buttonText: 'Xem thêm phảm phẩm tương tự',
                         onPressed: () {
                           context.read<FetchCategoryProductsBloc>().add(
                               CategoryPressedEvent(category: product.category));
@@ -187,7 +180,7 @@ class CartProduct extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             const Text(
-                                              'More items like this',
+                                              'Thêm các mặt hàng tương tự',
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold),

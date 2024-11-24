@@ -98,12 +98,31 @@ class AdminApi {
   Future<http.Response> adminAddProduct({required Product product}) async {
     final String token = await getToken();
     try {
-      http.Response res = await client.post(Uri.parse(adminAddProductsUri),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token,
-          },
-          body: product.toJson());
+      http.Response res = await client.post(
+        Uri.parse(adminAddProductsUri),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+        body: product.toJson(),
+      );
+      return res;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<http.Response> adminUpdateProduct({required Product product}) async {
+    final String token = await getToken();
+    try {
+      http.Response res = await client.put(
+        Uri.parse(adminUpdateProductsUri),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+        body: product.toJson(),
+      );
       return res;
     } catch (e) {
       throw Exception(e.toString());

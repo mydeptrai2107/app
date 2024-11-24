@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_amazon_clone_bloc/src/config/router/app_route_constants.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/bottom_bar/bottom_bar_bloc.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/cart/cart_bloc.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/user_cubit/user_cubit.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/bottom_bar/cu
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/bottom_bar/custom_bottom_sheet.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class BottomBar extends StatelessWidget {
@@ -99,7 +102,16 @@ class BottomBar extends StatelessWidget {
             bottomNavigationBar: CustomBottomNavBar(
               currentIndex: state.index,
               bottomNavBarList: items(index: state.index),
-              onTap: (page) {
+              onTap: (page) async {
+                if (page == 1 || page == 2) {
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  final token = prefs.getString('x-auth-token');
+                  if (token == null || token.isEmpty) {
+                    context.pushNamed(AppRouteConstants.authRoute.name);
+                    return;
+                  }
+                }
                 lastIndex = page;
 
                 context
@@ -120,21 +132,21 @@ class BottomBar extends StatelessWidget {
         iconName: 'home',
         isOpen: isOpen,
         page: 0,
-        label: 'Home',
+        label: 'Trang chủ',
       ),
       bottomNavBarItem(
         index: index,
         iconName: 'you',
         isOpen: isOpen,
         page: 1,
-        label: 'You',
+        label: 'Tài khoản',
       ),
       bottomNavBarItem(
         index: index,
         iconName: 'cart',
         isOpen: isOpen,
         page: 2,
-        label: 'Cart',
+        label: 'Giỏ hàng',
       ),
       bottomNavBarItem(
         index: index,

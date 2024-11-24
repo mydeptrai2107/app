@@ -42,31 +42,31 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: NameBar(),
                   ),
                   Positioned(
-                      top: 50,
-                      child: Container(
-                        height: 80,
-                        width: MediaQuery.sizeOf(context).width,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                Colors.white.withOpacity(0.1),
-                                Colors.white.withOpacity(0.9)
-                              ],
-                              stops: const [
-                                0,
-                                0.45
-                              ],
-                              begin: AlignmentDirectional.topCenter,
-                              end: Alignment.bottomCenter),
+                    top: 50,
+                    child: Container(
+                      height: 80,
+                      width: MediaQuery.sizeOf(context).width,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.9)
+                          ],
+                          stops: const [0, 0.45],
+                          begin: AlignmentDirectional.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   Positioned(
                     top: 60,
                     child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        height: 200,
-                        width: MediaQuery.sizeOf(context).width,
-                        child: const TopButtons()),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      height: 200,
+                      width: MediaQuery.sizeOf(context).width,
+                      child: const TopButtons(),
+                    ),
                   ),
                 ],
               ),
@@ -108,7 +108,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
-                                        'Your Orders',
+                                        'Đơn hàng của bạn',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400),
@@ -119,7 +119,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                               .yourOrdersScreenRoute.name);
                                         },
                                         child: Text(
-                                          'See all',
+                                          'Xem tất cả',
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
                                               fontSize: 14,
@@ -132,60 +132,59 @@ class _AccountScreenState extends State<AccountScreen> {
                                   SizedBox(
                                     height: 170,
                                     child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: state.ordersList.length,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {
-                                              context.pushNamed(
-                                                  AppRouteConstants
-                                                      .orderDetailsScreenRoute
-                                                      .name,
-                                                  extra:
-                                                      state.ordersList[index]);
-                                            },
-                                            child: Container(
-                                                width: 200,
-                                                margin: const EdgeInsets.all(8),
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.black12,
-                                                      width: 1.5),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                child: state.ordersList[index]
-                                                            .products.length ==
-                                                        1
-                                                    ? SingleProduct(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: state.ordersList.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            context.pushNamed(
+                                                AppRouteConstants
+                                                    .orderDetailsScreenRoute
+                                                    .name,
+                                                extra: state.ordersList[index]);
+                                          },
+                                          child: Container(
+                                            width: 200,
+                                            margin: const EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black12,
+                                                  width: 1.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: state.ordersList[index]
+                                                        .products.length ==
+                                                    1
+                                                ? SingleProduct(
+                                                    image: state
+                                                        .ordersList[index]
+                                                        .products[0]
+                                                        .images[0],
+                                                  )
+                                                : Row(
+                                                    children: [
+                                                      SingleProduct(
                                                         image: state
                                                             .ordersList[index]
                                                             .products[0]
                                                             .images[0],
+                                                      ),
+                                                      Text(
+                                                        '+ ${state.ordersList[index].products.length - 1}',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors
+                                                              .grey.shade500,
+                                                        ),
                                                       )
-                                                    : Row(
-                                                        children: [
-                                                          SingleProduct(
-                                                            image: state
-                                                                .ordersList[
-                                                                    index]
-                                                                .products[0]
-                                                                .images[0],
-                                                          ),
-                                                          Text(
-                                                            '+ ${state.ordersList[index].products.length - 1}',
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: Colors.grey
-                                                                  .shade500,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      )),
-                                          );
-                                        }),
+                                                    ],
+                                                  ),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                   const DividerWithSizedBox(
                                     thickness: 4,
@@ -205,7 +204,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
-                                        'Keep shopping for',
+                                        'Tiếp tục mua sắm',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400),
@@ -216,7 +215,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                               .browsingHistoryScreenRoute.name);
                                         },
                                         child: Text(
-                                          'Browsing history',
+                                          'Lịch sử duyệt web',
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
                                               fontSize: 14,
@@ -324,7 +323,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
-                                        'Your Wish List',
+                                        'Danh sách yêu thích của bạn',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400),
@@ -335,7 +334,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                 .yourWishListScreenRoute.name);
                                           },
                                           child: Text(
-                                            'See all',
+                                            'Xem tất cả',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
@@ -419,8 +418,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black87),
+                                                fontSize: 14,
+                                                color: Colors.black87,
+                                              ),
                                             )
                                           ],
                                         ),

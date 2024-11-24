@@ -24,7 +24,7 @@ class AdminGetAnalyticsCubit extends Cubit<AdminGetAnalyticsState> {
         ColumnSeries<Sales, String>(
           dataSource: earnings['sales'],
           xValueMapper: (Sales data, _) => data.label,
-          yValueMapper: (Sales data, _) => data.earning,
+          yValueMapper: (Sales data, _) => data.earning.toInt(),
           pointColorMapper: (Sales data, _) => data.pointColor,
           dataLabelSettings: const DataLabelSettings(isVisible: true),
         )
@@ -32,7 +32,7 @@ class AdminGetAnalyticsCubit extends Cubit<AdminGetAnalyticsState> {
 
       emit(AdminGetAnalyticsSuccessS(
           sales: earnings['sales'],
-          totalEarnings: earnings['totalEarnings'],
+          totalEarnings: earnings['totalEarnings'].toInt(),
           seriesData: seriesData));
     } catch (e) {
       emit(AdminGetAnalyticsErrorS(errorString: e.toString()));

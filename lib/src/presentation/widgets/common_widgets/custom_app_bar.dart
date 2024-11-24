@@ -12,13 +12,24 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: 300,
       flexibleSpace: Container(
         decoration: const BoxDecoration(gradient: Constants.appBarGradient),
       ),
-      title: SearchTextFormField(onTapSearchField: (String query) {
-        context.pushNamed(AppRouteConstants.searchScreenRoute.name,
-            pathParameters: {'searchQuery': query});
-      }),
+      title: Column(
+        children: [
+          // Image.asset(
+          //   "assets/images/amazon_in.png",
+          //   width: 200,
+          //   height: 50,
+          //   fit: BoxFit.contain,
+          // ),
+          SearchTextFormField(onTapSearchField: (String query) {
+            context.pushNamed(AppRouteConstants.searchScreenRoute.name,
+                pathParameters: {'searchQuery': query});
+          }),
+        ],
+      ),
     );
   }
 }

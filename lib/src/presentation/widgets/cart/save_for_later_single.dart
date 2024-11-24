@@ -70,7 +70,7 @@ class SaveForLaterSingle extends StatelessWidget {
                           ],
                         ),
                         const Text(
-                          'Eligible for FREE Shipping',
+                          'Đủ điều kiện để được MIỄN PHÍ Vận chuyển',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 14,
@@ -78,17 +78,10 @@ class SaveForLaterSingle extends StatelessWidget {
                           ),
                         ),
                         const Text(
-                          'In stock',
+                          'Còn hàng',
                           style: TextStyle(
                             fontSize: 14,
                             color: Constants.greenColor,
-                          ),
-                        ),
-                        Text(
-                          '7 days Replacement',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Constants.selectedNavBarColor,
                           ),
                         ),
                         const SizedBox(
@@ -106,7 +99,7 @@ class SaveForLaterSingle extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextButton(
-                      buttonText: 'Delete',
+                      buttonText: 'Xóa bỏ',
                       onPressed: () {
                         context
                             .read<CartBloc>()
@@ -115,7 +108,7 @@ class SaveForLaterSingle extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTextButton(
-                      buttonText: 'Compare',
+                      buttonText: 'So sánh',
                       onPressed: () {
                         context.read<FetchCategoryProductsBloc>().add(
                             CategoryPressedEvent(category: product.category));
@@ -136,7 +129,7 @@ class SaveForLaterSingle extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           const Text(
-                                            'More items like this',
+                                            'Thêm các mặt hàng tương tự',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
@@ -195,12 +188,13 @@ class SaveForLaterSingle extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomTextButton(
-                      buttonText: 'Move to cart',
-                      onPressed: () {
-                        context
-                            .read<CartBloc>()
-                            .add(MoveToCartE(product: product));
-                      }),
+                    buttonText: 'Chuyển đến giỏ hàng',
+                    onPressed: () {
+                      context
+                          .read<CartBloc>()
+                          .add(MoveToCartE(product: product));
+                    },
+                  ),
                 ),
               ],
             ),

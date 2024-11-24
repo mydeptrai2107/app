@@ -4,7 +4,7 @@ import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 
 class Sales extends Equatable {
   final String label;
-  final int earning;
+  final double earning;
   final Color pointColor = Constants.secondaryColor;
 
   const Sales(this.label, this.earning);

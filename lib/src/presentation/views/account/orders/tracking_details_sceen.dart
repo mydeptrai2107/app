@@ -93,7 +93,7 @@ class TrackingDetailsScreen extends StatelessWidget {
                           sB2Height: 20,
                         ),
                         const Text(
-                          'Delivery by Amazon',
+                          'Giao hàng bởi LuvoxShop',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -236,7 +236,7 @@ class UserAddressBlock extends StatelessWidget {
                       });
                 },
                 child: Text(
-                  'See all updates',
+                  'Xem trạng thái đơn',
                   style: subtextStyle.copyWith(
                       color: Constants.selectedNavBarColor),
                 ),

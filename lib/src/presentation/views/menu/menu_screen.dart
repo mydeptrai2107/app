@@ -5,48 +5,58 @@ import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/common_widget
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/common_widgets/custom_text_button.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/menu/container_clipper.dart';
 
 class MenuScreen extends StatelessWidget {
   static const String routeName = '/menu-screen';
   const MenuScreen({super.key});
+  FutureBuilder _buildBottomSheet() {
+    return FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          final token = snapshot.data?.getString('x-auth-token');
+          if (token == null || token.isEmpty) return const SizedBox();
+          return BottomSheet(
+              onClosing: () {},
+              constraints: const BoxConstraints(maxHeight: 80, minHeight: 80),
+              builder: ((context) {
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    CustomTextButton(
+                        buttonText: 'Đơn hàng',
+                        onPressed: () => context.pushNamed(
+                            AppRouteConstants.yourOrdersScreenRoute.name),
+                        isMenuScreenButton: true),
+                    CustomTextButton(
+                        buttonText: 'Lịch sử',
+                        onPressed: () => context.pushNamed(
+                            AppRouteConstants.browsingHistoryScreenRoute.name),
+                        isMenuScreenButton: true),
+                    CustomTextButton(
+                        buttonText: 'Tài khoản',
+                        onPressed: () {},
+                        isMenuScreenButton: true),
+                    CustomTextButton(
+                        buttonText: 'Danh sách yêu thích',
+                        onPressed: () => context.pushNamed(
+                            AppRouteConstants.yourWishListScreenRoute.name),
+                        isMenuScreenButton: true),
+                  ],
+                );
+              }));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(60), child: CustomAppBar()),
-      bottomSheet: BottomSheet(
-          onClosing: () {},
-          constraints: const BoxConstraints(maxHeight: 80, minHeight: 80),
-          builder: ((context) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomTextButton(
-                    buttonText: 'Orders',
-                    onPressed: () => context.pushNamed(
-                        AppRouteConstants.yourOrdersScreenRoute.name),
-                    isMenuScreenButton: true),
-                CustomTextButton(
-                    buttonText: 'History',
-                    onPressed: () => context.pushNamed(
-                        AppRouteConstants.browsingHistoryScreenRoute.name),
-                    isMenuScreenButton: true),
-                CustomTextButton(
-                    buttonText: 'Account',
-                    onPressed: () {},
-                    isMenuScreenButton: true),
-                CustomTextButton(
-                    buttonText: 'Wish List',
-                    onPressed: () => context.pushNamed(
-                        AppRouteConstants.yourWishListScreenRoute.name),
-                    isMenuScreenButton: true),
-              ],
-            );
-          })),
+      bottomSheet: _buildBottomSheet(),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: const BoxDecoration(
@@ -71,7 +81,7 @@ class MenuScreen extends StatelessWidget {
               Map<String, String> category = Constants.menuScreenImages[index];
 
               return MenuCategoryContainer(
-                title: category['title']!,
+                title: category['name']!,
                 category: category['category']!,
                 imageLink: category['image']!,
               );
@@ -108,10 +118,11 @@ class MenuCategoryContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.shade500.withOpacity(0.35),
-                blurRadius: 3,
-                offset: const Offset(0, 0),
-                spreadRadius: 3)
+              color: Colors.grey.shade500.withOpacity(0.35),
+              blurRadius: 3,
+              offset: const Offset(0, 0),
+              spreadRadius: 3,
+            ),
           ],
           border: Border.all(color: Colors.grey.shade500, width: 1),
         ),
@@ -152,7 +163,7 @@ class MenuCategoryContainer extends StatelessWidget {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                   ),

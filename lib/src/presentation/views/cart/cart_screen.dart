@@ -6,7 +6,6 @@ import 'package:flutter_amazon_clone_bloc/src/logic/blocs/cart/cart_offers_cubit
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/cart/cart_offers_cubit2/cart_offers_cubit.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/cart/cart_offers_cubit3/cart_offers_cubit.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/cart/add_to_card_offer.dart';
-import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/cart/amazon_pay_bannar_ad.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/cart/cart_icon.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/cart/cart_product.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/cart/save_for_later_single.dart';
@@ -18,11 +17,15 @@ import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   getCartOffers(context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return;
     List<String> categories =
         await BlocProvider.of<CartOffersCubit1>(context).setOfferCategories();
     BlocProvider.of<CartOffersCubit1>(context)
@@ -82,7 +85,10 @@ class CartScreen extends StatelessWidget {
                                             width: 180,
                                           ),
                                         ),
-                                        const Text('Your Amazon Cart is empty')
+                                        const Expanded(
+                                          child: Text(
+                                              'Giỏ hàng LuvoxShope của bạn trống'),
+                                        )
                                       ],
                                     ),
                                   )
@@ -95,7 +101,7 @@ class CartScreen extends StatelessWidget {
                                             CrossAxisAlignment.center,
                                         children: [
                                           const Text(
-                                            'SubTotal ',
+                                            'Tổng phụ ',
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.normal,
@@ -152,7 +158,7 @@ class CartScreen extends StatelessWidget {
                                             child: RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        'Your order is eligible for FREE Delivery. ',
+                                                        'Đơn hàng của bạn đủ điều kiện để được Giao hàng MIỄN PHÍ.',
                                                     style: const TextStyle(
                                                         fontSize: 14,
                                                         color: Constants
@@ -162,7 +168,7 @@ class CartScreen extends StatelessWidget {
                                                     children: [
                                                   const TextSpan(
                                                     text:
-                                                        'Select this option at checkout. ',
+                                                        'Chọn tùy chọn này khi thanh toán. ',
                                                     style: TextStyle(
                                                         height: 1.4,
                                                         fontSize: 14,
@@ -171,7 +177,7 @@ class CartScreen extends StatelessWidget {
                                                             FontWeight.w400),
                                                   ),
                                                   TextSpan(
-                                                    text: 'Details ',
+                                                    text: 'Chi tiết ',
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Constants
@@ -185,10 +191,8 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 10),
                                       CustomElevatedButton(
-                                        buttonText: state.cartProducts.length ==
-                                                1
-                                            ? 'Proceed to Buy (${state.cartProducts.length} item)'
-                                            : 'Proceed to Buy (${state.cartProducts.length} items)',
+                                        buttonText:
+                                            'Tiến hành mua (1 sản phẩm)',
                                         onPressed: () {
                                           context.pushNamed(
                                               AppRouteConstants
@@ -223,23 +227,22 @@ class CartScreen extends StatelessWidget {
                                           DismissDirection.startToEnd) {
                                         context.read<CartBloc>().add(
                                             DeleteFromCart(product: product));
-                                        showSnackBar(context, 'Deleted!');
+                                        showSnackBar(context, 'Đã xóa!');
                                         // deleteProduct(product);
                                       } else if (direction ==
                                           DismissDirection.endToStart) {
                                         context.read<CartBloc>().add(
                                             SaveForLaterE(product: product));
-                                        showSnackBar(
-                                            context, 'Saved for later!');
+                                        showSnackBar(context, 'Lưu lại sau!');
                                       }
                                     },
                                     background: const SwipeContainer(
                                       isDelete: true,
-                                      secondaryBackgroundText: 'Save for later',
+                                      secondaryBackgroundText: 'Lưu lại sau',
                                     ),
                                     secondaryBackground: const SwipeContainer(
                                       isDelete: false,
-                                      secondaryBackgroundText: 'Save for later',
+                                      secondaryBackgroundText: 'Lưu lại sau',
                                     ),
                                     key: UniqueKey(),
                                     child: InkWell(
@@ -268,17 +271,18 @@ class CartScreen extends StatelessWidget {
                         children: [
                           CartIcon(
                             iconName: 'secure_payment.png',
-                            title: 'Secure Payment',
+                            title: 'Thanh toán an toàn',
                           ),
                           CartIcon(
                             iconName: 'delivered_alt.png',
-                            title: 'Amazon Delivered',
+                            title: 'LovuxShop Vận Chuyển',
                           ),
                         ],
                       ),
+                      const DividerWithSizedBox(),
                       const SizedBox(height: 15),
-                      const AmazonPayBannarAd(),
-                      const SizedBox(height: 15),
+                      // const AmazonPayBannarAd(),
+                      // const SizedBox(height: 15),
                       state.saveForLaterProducts.isEmpty
                           ? const SizedBox()
                           : Column(
@@ -293,11 +297,12 @@ class CartScreen extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 12),
                                   child: Text(
                                     state.saveForLaterProducts.length == 1
-                                        ? 'Saved for later (${state.saveForLaterProducts.length} item)'
-                                        : 'Saved for later (${state.saveForLaterProducts.length} items)',
+                                        ? 'Sản phẩm đã lưu'
+                                        : 'Sản phẩm đã lưu',
                                     style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 ListView.builder(
@@ -330,23 +335,24 @@ class CartScreen extends StatelessWidget {
                                         background: const SwipeContainer(
                                             isDelete: true,
                                             secondaryBackgroundText:
-                                                'Move to cart'),
+                                                'Thêm vào giỏ hàng'),
                                         secondaryBackground:
                                             const SwipeContainer(
                                                 isDelete: false,
                                                 secondaryBackgroundText:
-                                                    'Move to cart'),
+                                                    'Thêm vào giỏ hàng'),
                                         child: InkWell(
                                           onTap: () {
                                             context.pushNamed(
-                                                AppRouteConstants
-                                                    .productDetailsScreenRoute
-                                                    .name,
-                                                extra: {
-                                                  "product": product,
-                                                  "deliveryDate":
-                                                      getDeliveryDate(),
-                                                });
+                                              AppRouteConstants
+                                                  .productDetailsScreenRoute
+                                                  .name,
+                                              extra: {
+                                                "product": product,
+                                                "deliveryDate":
+                                                    getDeliveryDate(),
+                                              },
+                                            );
                                           },
                                           child: SaveForLaterSingle(
                                             product: product,
@@ -363,7 +369,7 @@ class CartScreen extends StatelessWidget {
                           return state.productList.isEmpty
                               ? const SizedBox()
                               : AddToCartWidget(
-                                  title: 'Top picks for you',
+                                  title: 'Lựa chọn hàng đầu dành cho bạn',
                                   isTitleLong: false,
                                   productList: state.productList,
                                   averageRating: state.averageRatingList,
@@ -378,7 +384,7 @@ class CartScreen extends StatelessWidget {
                               ? const SizedBox()
                               : AddToCartWidget(
                                   title:
-                                      'Frequently viewed with items in your cart',
+                                      'Được xem thường xuyên với các mặt hàng trong giỏ hàng của bạn',
                                   isTitleLong: true,
                                   productList: state.productList,
                                   averageRating: state.averageRatingList,
@@ -392,7 +398,7 @@ class CartScreen extends StatelessWidget {
                           return state.productList.isEmpty
                               ? const SizedBox()
                               : AddToCartWidget(
-                                  title: 'Recommendations for you',
+                                  title: 'Đề xuất cho bạn',
                                   isTitleLong: false,
                                   productList: state.productList,
                                   averageRating: state.averageRatingList,

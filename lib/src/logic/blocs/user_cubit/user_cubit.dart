@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/user.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/user_repository.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'user_state.dart';
 
@@ -20,7 +21,11 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  Future<User> getUserData() async {
+  Future<User?> getUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return null;
+
     User user;
 
     user = await userRepository.getUserData();

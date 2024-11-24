@@ -17,7 +17,7 @@ class SingleBottomOffer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       width: 150,
       decoration: BoxDecoration(
-        gradient: Constants.goldenGradient,
+        gradient: Constants.lightBlueGradient,
         borderRadius: BorderRadius.circular(4),
       ),
       child: GridView.builder(

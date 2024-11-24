@@ -121,12 +121,7 @@ class SingleListingProduct extends StatelessWidget {
                     ),
                     // const SizedBox(height: 4),
                     const Text(
-                      'FREE Delivery by Amazon',
-                      style: productTextStyle,
-                    ),
-                    // const SizedBox(height: 4),
-                    const Text(
-                      '7 days Replacement',
+                      'Giao hàng MIỄN PHÍ bởi LovuxShop',
                       style: productTextStyle,
                     ),
                   ],

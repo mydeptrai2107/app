@@ -22,15 +22,18 @@ class SingleTopCategoryItem extends StatelessWidget {
         children: [
           Image.asset(
             image,
-            height: 50,
-            width: 50,
+            height: 100,
+            width: 100,
             fit: BoxFit.cover,
           ),
           Text(
             title,
             style: isBottomOffer
                 ? const TextStyle(fontSize: 11)
-                : const TextStyle(),
+                : const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
           ),
         ],
       ),

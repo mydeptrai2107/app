@@ -23,12 +23,41 @@ class AdminSellProductCubit extends Cubit<AdminSellProductState> {
       emit(AdminSellProductsLoadingS());
 
       await adminRepository.adminAddProduct(
-          name: name,
-          description: description,
-          price: price,
-          quantity: quantity,
-          category: category,
-          images: images);
+        name: name,
+        description: description,
+        price: price,
+        quantity: quantity,
+        category: category,
+        images: images,
+      );
+
+      emit(AdminSellProductSuccessS());
+    } catch (e) {
+      emit(AdminSellProductErrorS(errorString: e.toString()));
+    }
+  }
+
+  Future<void> updateProduct({
+    required String id,
+    required String name,
+    required String description,
+    required double price,
+    required int quantity,
+    required String category,
+    required List<File> images,
+  }) async {
+    try {
+      emit(AdminSellProductsLoadingS());
+
+      await adminRepository.adminUpdateProduct(
+        id: id,
+        name: name,
+        description: description,
+        price: price,
+        quantity: quantity,
+        category: category,
+        images: images,
+      );
 
       emit(AdminSellProductSuccessS());
     } catch (e) {

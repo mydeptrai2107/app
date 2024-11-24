@@ -340,10 +340,17 @@ class UserRepository {
   }
 
   Future<Order> placeOrder(
-      {required double totalPrice, required String address}) async {
+      {required double totalPrice,
+      required String address,
+      bool paid = false,
+      required String payMethod, String? voucherCode}) async {
     try {
-      http.Response res =
-          await userApi.placeOrder(totalPrice: totalPrice, address: address);
+      http.Response res = await userApi.placeOrder(
+          totalPrice: totalPrice,
+          voucherCode: voucherCode,
+          address: address,
+          paid: paid,
+          payMethod: payMethod);
 
       if (res.statusCode == 200) {
         Order order = Order.fromJson(
@@ -368,6 +375,20 @@ class UserRepository {
 
       if (res.statusCode == 200) {
         return true;
+      } else {
+        throw Exception(jsonDecode(res.body)['msg']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future getVouchers() async {
+    try {
+      http.Response res = await userApi.getVouchers();
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
       } else {
         throw Exception(jsonDecode(res.body)['msg']);
       }

@@ -21,7 +21,7 @@ class YouMightAlsoLikeBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Customers who viewed $productName... also viewed',
+          'Khách hàng đã xem $productName... ',
           maxLines: 2,
           style: const TextStyle(
               color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 18),
@@ -36,26 +36,27 @@ class YouMightAlsoLikeBlock extends StatelessWidget {
             builder: (context, state) {
               if (state is FetchCategoryProductsSuccessS) {
                 return ListView.builder(
-                    itemCount: state.productList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: ((context, index) {
-                      Product product = state.productList[index];
-                      double averageRating = state.averageRatingList[index];
-                      return InkWell(
-                          onTap: () {
-                            context.pushNamed(
-                                AppRouteConstants
-                                    .productDetailsScreenRoute.name,
-                                extra: {
-                                  "product": product,
-                                  "deliveryDate": getDeliveryDate(),
-                                });
-                          },
-                          child: YouMightAlsoLikeSingle(
-                            product: product,
-                            averageRating: averageRating,
-                          ));
-                    }));
+                  itemCount: state.productList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: ((context, index) {
+                    Product product = state.productList[index];
+                    double averageRating = state.averageRatingList[index];
+                    return InkWell(
+                      onTap: () {
+                        context.pushNamed(
+                            AppRouteConstants.productDetailsScreenRoute.name,
+                            extra: {
+                              "product": product,
+                              "deliveryDate": getDeliveryDate(),
+                            });
+                      },
+                      child: YouMightAlsoLikeSingle(
+                        product: product,
+                        averageRating: averageRating,
+                      ),
+                    );
+                  }),
+                );
               }
               return const Center(
                 child: CircularProgressIndicator(),

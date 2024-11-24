@@ -73,13 +73,12 @@ class AdminCategoryProductsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final product = state.categoryProducts[index];
                           return InkWell(
-                            onTap: () => context.pushNamed(
-                                AppRouteConstants
-                                    .productDetailsScreenRoute.name,
-                                extra: {
-                                  'product': product,
-                                  'deliveryDate': getDeliveryDate()
-                                }),
+                            onTap: () => context.pushReplacementNamed(
+                              AppRouteConstants.adminUpdateProductsScreen.name,
+                              extra: {
+                                'product': product,
+                              },
+                            ),
                             child: Container(
                               margin: const EdgeInsets.all(6),
                               padding: const EdgeInsets.symmetric(vertical: 6),

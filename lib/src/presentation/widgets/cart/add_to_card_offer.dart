@@ -88,7 +88,7 @@ class AddToCartOffer extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                showSnackBar(context, 'Added to Cart!');
+                showSnackBar(context, 'Đã thêm vào giỏ hàng!');
                 context
                     .read<CartBloc>()
                     .add(AddToCartFromBottomSheet(product: product));
@@ -101,7 +101,7 @@ class AddToCartOffer extends StatelessWidget {
                   backgroundColor:
                       WidgetStatePropertyAll(Constants.yellowColor)),
               child: const Text(
-                'Add to Cart',
+                'Vào giỏ hàng',
                 style: TextStyle(
                     fontSize: 12,
                     color: Colors.black87,

@@ -223,7 +223,11 @@ class UserApi {
   }
 
   Future<http.Response> placeOrder(
-      {required double totalPrice, required String address}) async {
+      {required double totalPrice,
+      required String address,
+      required bool paid,
+      required String payMethod,
+      String? voucherCode}) async {
     final token = await getToken();
     try {
       http.Response res = await client.post(
@@ -236,6 +240,9 @@ class UserApi {
           {
             "totalPrice": totalPrice,
             "address": address,
+            "voucherCode": voucherCode,
+            "paid": paid,
+            "payMethod": payMethod
           },
         ),
       );
@@ -263,6 +270,23 @@ class UserApi {
             'address': address,
           },
         ),
+      );
+
+      return res;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<http.Response> getVouchers() async {
+    final token = await getToken();
+    try {
+      http.Response res = await client.get(
+        Uri.parse(voucherUri),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
       );
 
       return res;

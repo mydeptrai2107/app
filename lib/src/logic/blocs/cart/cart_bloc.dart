@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/product.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/account_repository.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -55,6 +56,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onGetCartHandler(event, emit) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return null;
+
     try {
       emit(CartLoadingS());
       List<dynamic> items = await tryBlockCode(
@@ -71,6 +76,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   void _onAddToCartHandler(event, emit) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return;
     try {
       emit(CartLoadingS());
       List<dynamic> items = await tryBlockCode(

@@ -11,8 +11,8 @@ class TopCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
-      decoration: const BoxDecoration(gradient: Constants.goldenGradient),
+      height: 150,
+      decoration: const BoxDecoration(gradient: Constants.lightBlueGradient),
       child: Center(
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -27,7 +27,7 @@ class TopCategories extends StatelessWidget {
                       });
                 },
                 child: SingleTopCategoryItem(
-                  title: Constants.categoryImages[index]['title']!,
+                  title: Constants.categoryImages[index]['name']!,
                   image: Constants.categoryImages[index]['image']!,
                 ),
               );

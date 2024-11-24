@@ -5,8 +5,12 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+dependencies {
+    implementation project(":zpdk-release-v3.1")
+}
+
 android {
-    ndkVersion "25.1.8937393"
+    ndkVersion = "25.1.8937393"
     namespace = "com.example.flutter_amazon_clone_bloc"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion

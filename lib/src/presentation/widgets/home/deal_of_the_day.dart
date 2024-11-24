@@ -27,7 +27,7 @@ class DealOfTheDay extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text('Deal of the day',
+              const Text('Deal của hôm nay',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
               const SizedBox(
                 height: 10,

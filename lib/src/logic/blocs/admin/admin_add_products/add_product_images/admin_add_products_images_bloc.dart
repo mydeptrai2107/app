@@ -18,6 +18,14 @@ class AdminAddProductsImagesBloc
   }
 
   void _onSelectImagesPressedHandler(event, emit) async {
+    if (event.imageList != null) {
+      List<File> imagesList = [];
+      for (int i = 0; i < event.imageList!.length; i++) {
+        imagesList.add(File(event.imageList![i]));
+      }
+      emit(AdminAddProductsImagesSelectedS(imagesList: imagesList));
+      return;
+    }
     try {
       List<File> imagesList = [];
 

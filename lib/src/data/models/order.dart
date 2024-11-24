@@ -11,6 +11,8 @@ class Order extends Equatable {
   final int orderedAt;
   final int status;
   final double totalPrice;
+  final bool paid;
+  final String payMethod;
   const Order({
     required this.id,
     required this.products,
@@ -20,6 +22,8 @@ class Order extends Equatable {
     required this.orderedAt,
     required this.status,
     required this.totalPrice,
+    required this.paid,
+    required this.payMethod,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +36,7 @@ class Order extends Equatable {
       'orderedAt': orderedAt,
       'status': status,
       'totalPrice': totalPrice,
+      'paid': paid,
     };
   }
 
@@ -50,6 +55,8 @@ class Order extends Equatable {
       orderedAt: map['orderedAt']?.toInt() ?? 0,
       status: map['status']?.toInt() ?? 0,
       totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
+      paid: map['paid'] ?? false,
+      payMethod: map['payMethod'] ?? '',
     );
   }
 

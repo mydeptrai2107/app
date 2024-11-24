@@ -5,6 +5,7 @@ import 'package:flutter_amazon_clone_bloc/src/data/models/product.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/user.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/account_repository.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/repositories/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'fetch_account_screen_data_state.dart';
 
@@ -15,6 +16,9 @@ class FetchAccountScreenDataCubit extends Cubit<FetchAccountScreenDataState> {
       : super(FetchAccountScreenDataLoadingS());
 
   void getAccountScreenData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('x-auth-token');
+    if (token == null || token.isEmpty) return;
     try {
       List<Order> ordersList;
       List<Order> tempOrdersList;

@@ -9,40 +9,41 @@ class NameBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 120,
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-        width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xff92DDE6),
-                Color(0xffA6E6CE),
-              ]),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Hello, ',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
-            ),
-            BlocBuilder<UserCubit, UserState>(
-              builder: (context, state) {
-                if (state is UserSuccessS) {
-                  String name = capitalizeFirstLetter(string: state.user.name);
-                  return Text(
-                    name,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                  );
-                }
+      height: 120,
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+      width: MediaQuery.sizeOf(context).width,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xff92DDE6),
+              Color(0xffA6E6CE),
+            ]),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Hello, ',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+          ),
+          BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (state is UserSuccessS) {
+                String name = capitalizeFirstLetter(string: state.user.name);
+                return Text(
+                  name,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                );
+              }
 
-                return const SizedBox();
-              },
-            ),
-          ],
-        ));
+              return const SizedBox();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

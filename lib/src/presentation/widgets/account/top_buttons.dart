@@ -16,7 +16,7 @@ class TopButtons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AccountButton(
-                buttonName: 'Your Orders',
+                buttonName: 'Đơn hàng của bạn',
                 onPressed: () {
                   context
                       .pushNamed(AppRouteConstants.yourOrdersScreenRoute.name);
@@ -26,7 +26,7 @@ class TopButtons extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            AccountButton(buttonName: 'Buy Again', onPressed: () {}),
+            AccountButton(buttonName: 'Mua lại', onPressed: () {}),
           ],
         ),
         const SizedBox(
@@ -36,32 +36,34 @@ class TopButtons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AccountButton(
-                buttonName: 'Log Out',
-                onPressed: () async {
-                  try {
-                    SharedPreferences sharedPreferences =
-                        await SharedPreferences.getInstance();
+              buttonName: 'Đăng xuất',
+              onPressed: () async {
+                try {
+                  SharedPreferences sharedPreferences =
+                      await SharedPreferences.getInstance();
 
-                    await sharedPreferences.setString('x-auth-token', '');
+                  await sharedPreferences.setString('x-auth-token', '');
 
-                    if (context.mounted) {
-                      context.goNamed(AppRouteConstants.authRoute.name);
-                    }
-                  } catch (e) {
-                    if (context.mounted) {
-                      showSnackBar(context, e.toString());
-                    }
+                  if (context.mounted) {
+                    context.goNamed(AppRouteConstants.authRoute.name);
                   }
-                }),
+                } catch (e) {
+                  if (context.mounted) {
+                    showSnackBar(context, e.toString());
+                  }
+                }
+              },
+            ),
             const SizedBox(
               width: 10,
             ),
             AccountButton(
-                buttonName: 'Wish List',
-                onPressed: () {
-                  context.pushNamed(
-                      AppRouteConstants.yourWishListScreenRoute.name);
-                }),
+              buttonName: 'Danh sách yêu sách',
+              onPressed: () {
+                context
+                    .pushNamed(AppRouteConstants.yourWishListScreenRoute.name);
+              },
+            ),
           ],
         ),
       ],

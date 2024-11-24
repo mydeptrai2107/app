@@ -20,13 +20,13 @@ class CustomCarouselSliderMap extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               context.pushNamed(
-                  AppRouteConstants.categoryproductsScreenRoute.name,
-                  pathParameters: {'category': i['category']!});
+                AppRouteConstants.categoryproductsScreenRoute.name,
+                pathParameters: {'category': i['category']!},
+              );
             },
             child: CachedNetworkImage(
               imageUrl: i['image']!,
-              fit: BoxFit.contain,
-              alignment: Alignment.topCenter,
+              fit: BoxFit.fill,
               placeholder: (context, url) => const SizedBox(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
@@ -34,10 +34,11 @@ class CustomCarouselSliderMap extends StatelessWidget {
         });
       }).toList(),
       options: CarouselOptions(
-          autoPlay: true,
-          height: 450,
-          viewportFraction: 1,
-          onPageChanged: onPageChanged),
+        autoPlay: true,
+        height: 250,
+        viewportFraction: 1,
+        onPageChanged: onPageChanged,
+      ),
     );
   }
 }

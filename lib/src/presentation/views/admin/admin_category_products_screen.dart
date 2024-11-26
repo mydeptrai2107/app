@@ -9,8 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AdminCategoryProductsScreen extends StatelessWidget {
-  const AdminCategoryProductsScreen({super.key, required this.category});
+  const AdminCategoryProductsScreen({
+    super.key,
+    required this.category,
+    required this.name,
+  });
   final String category;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +62,7 @@ class AdminCategoryProductsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
-                          '${state.categoryProducts.length} Results in $category',
+                          '${state.categoryProducts.length} Kết quả tìm được cho $name',
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w300),
                         ),

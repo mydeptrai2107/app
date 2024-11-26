@@ -38,7 +38,7 @@ class AdminOffersScreen extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: Text(
-                        'Total ${state.fourImagesOfferList.length} Offers',
+                        'Tổng số ưu đãi  ${state.fourImagesOfferList.length}',
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),

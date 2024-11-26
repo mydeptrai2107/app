@@ -289,12 +289,16 @@ final router = GoRouter(initialLocation: '/', routes: [
     path: AppRouteConstants.adminCategoryProductsScreen.path,
     name: AppRouteConstants.adminCategoryProductsScreen.name,
     pageBuilder: (context, state) {
-      String category = state.extra as String;
+      Map<String, dynamic> extraData = state.extra as Map<String, dynamic>;
+      String category = extraData['category'];
+      String name = extraData['name'];
 
       return MaterialPage(
-          child: AdminCategoryProductsScreen(
-        category: category,
-      ));
+        child: AdminCategoryProductsScreen(
+          category: category,
+          name: name,
+        ),
+      );
     },
   ),
 ]);

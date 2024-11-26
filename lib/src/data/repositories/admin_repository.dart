@@ -285,7 +285,7 @@ class AdminRepository {
       if (res.statusCode == 200) {
         var resDecoded = jsonDecode(res.body);
 
-        totalEarnings = resDecoded['totalEarnings'];
+        totalEarnings = resDecoded['totalEarnings'] / 1.0;
 
         sales = [
           Sales('Mobiles', resDecoded['mobileEarnings'].toDouble() ?? 0),

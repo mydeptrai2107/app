@@ -95,7 +95,7 @@ class MultiImageOffer extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => goToCateogryDealsScreen(),
                   child: Text(
-                    'See all offers',
+                    'Xem tất cả ưu đãi',
                     style: TextStyle(color: Constants.selectedNavBarColor),
                   ),
                 ),

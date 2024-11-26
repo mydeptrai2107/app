@@ -300,7 +300,40 @@ class _AdminAddProductScreenState extends State<AdminAddProductScreen> {
                                     .read<AdminAddSelectCategoryCubit>()
                                     .category!;
 
-                                if (_addProductFormKey.currentState!
+                                if (widget.product == null &&
+                                    _addProductFormKey.currentState!
+                                        .validate() &&
+                                    imagesList.isNotEmpty &&
+                                    category != 'Category') {
+                                  await context
+                                      .read<AdminSellProductCubit>()
+                                      .sellProduct(
+                                        name: productNameController.text,
+                                        description: descriptionController.text,
+                                        price:
+                                            double.parse(priceController.text),
+                                        quantity:
+                                            int.parse(quantityController.text),
+                                        category: category,
+                                        images: imagesList,
+                                      );
+
+                                  if (context.mounted) {
+                                    showSnackBar(
+                                      context,
+                                      widget.product == null
+                                          ? 'Đã thêm sản phẩm thành công!'
+                                          : 'Đã cập nhật sản phẩm thành công',
+                                    );
+                                    // Navigator.pop(context);
+                                  }
+                                } else {
+                                  showSnackBar(context,
+                                      'Lỗi! hãy chắc chắn rằng bạn đã điền vào mẫu một cách chính xác!');
+                                }
+
+                                if (widget.product != null &&
+                                    _addProductFormKey.currentState!
                                         .validate() &&
                                     imagesList.isNotEmpty &&
                                     category != 'Category') {

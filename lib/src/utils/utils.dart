@@ -77,7 +77,7 @@ String formatPriceWithDecimal(num price) {
 }
 
 String formatLakhs(int lakhs) {
-  final formatter = NumberFormat.compact(locale: 'en_IN');
+  final formatter = NumberFormat.compact(locale: 'vi_VN');
   final String formattedAmount = formatter.format(lakhs);
   return formattedAmount;
 }

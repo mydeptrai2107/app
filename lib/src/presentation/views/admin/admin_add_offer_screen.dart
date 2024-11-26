@@ -36,7 +36,7 @@ class AdminAddOfferScreen extends StatelessWidget {
           flexibleSpace: Container(
             decoration: const BoxDecoration(gradient: Constants.appBarGradient),
           ),
-          title: const Text('Add Offer'),
+          title: const Text('Thêm ưu đãi'),
         ),
       ),
       body: SingleChildScrollView(
@@ -48,7 +48,7 @@ class AdminAddOfferScreen extends StatelessWidget {
 
             if (state is AdminAddFourImageOfferSuccessS) {
               Navigator.pop(context);
-              showSnackBar(context, 'Offer added successfully!');
+              showSnackBar(context, 'Ưu đãi đã được thêm thành công!');
             }
           },
           builder: (context, state) {
@@ -63,7 +63,7 @@ class AdminAddOfferScreen extends StatelessWidget {
                       SizedBox(
                         height: 8,
                       ),
-                      Text('Adding offer...')
+                      Text('Đang thêm ưu đãi...')
                     ],
                   ),
                 ),
@@ -78,7 +78,7 @@ class AdminAddOfferScreen extends StatelessWidget {
                     children: [
                       CustomTextfield(
                         controller: titleController,
-                        hintText: 'Title',
+                        hintText: 'Tiêu đề',
                       ),
                       const SizedBox(
                         height: 4,
@@ -87,7 +87,8 @@ class AdminAddOfferScreen extends StatelessWidget {
                           AdminAddProductsImagesState>(
                         listener: (context, state) {
                           if (state is AdminAddProductsErrorS) {
-                            showSnackBar(context, 'Please add offer images');
+                            showSnackBar(
+                                context, 'Vui lòng thêm hình ảnh ưu đãi');
                           }
                         },
                         builder: (context, state) {
@@ -174,7 +175,7 @@ class AdminAddOfferScreen extends StatelessWidget {
                                         size: 40,
                                         color: Colors.black54,
                                       ),
-                                      Text('Select offer images',
+                                      Text('Chọn hình ảnh ưu đãi',
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: Colors.grey.shade400))
@@ -191,28 +192,28 @@ class AdminAddOfferScreen extends StatelessWidget {
                       ),
                       CustomTextfield(
                         controller: label1Controller,
-                        hintText: 'Label 1',
+                        hintText: 'Nội dung 1',
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       CustomTextfield(
                         controller: label2Controller,
-                        hintText: 'Label 2',
+                        hintText: 'Nội dung 2',
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       CustomTextfield(
                         controller: label3Controller,
-                        hintText: 'Label 3',
+                        hintText: 'Nội dung 3',
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       CustomTextfield(
                         controller: label4Controller,
-                        hintText: 'Label 4',
+                        hintText: 'Nội dung 4',
                       ),
                       const SizedBox(
                         height: 10,
@@ -228,8 +229,9 @@ class AdminAddOfferScreen extends StatelessWidget {
                                 productCategories: Constants.productCategories,
                                 currentCategory: state.category,
                                 valueStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                ),
                               );
                             } else {
                               return CustomDropDown(
@@ -245,7 +247,7 @@ class AdminAddOfferScreen extends StatelessWidget {
                         height: 20,
                       ),
                       CustomElevatedButton(
-                        buttonText: 'Add Offer',
+                        buttonText: 'Thêm ưu đãi',
                         onPressed: () async {
                           try {
                             List<File> imagesList = context
@@ -266,21 +268,26 @@ class AdminAddOfferScreen extends StatelessWidget {
                               await context
                                   .read<AdminFourImageOfferCubit>()
                                   .addFourImagesOffer(
-                                      title: titleController.text,
-                                      images: imagesList,
-                                      label1: label1Controller.text,
-                                      label2: label2Controller.text,
-                                      label3: label3Controller.text,
-                                      label4: label4Controller.text,
-                                      category: category);
+                                    title: titleController.text,
+                                    images: imagesList,
+                                    label1: label1Controller.text,
+                                    label2: label2Controller.text,
+                                    label3: label3Controller.text,
+                                    label4: label4Controller.text,
+                                    category: category,
+                                  );
                             } else {
-                              showSnackBar(context,
-                                  'Error! please make sure you have filled form correctly!');
+                              showSnackBar(
+                                context,
+                                'Lỗi! hãy chắc chắn rằng bạn đã điền vào mẫu một cách chính xác!',
+                              );
                             }
                           } catch (e) {
                             if (context.mounted) {
                               showSnackBar(
-                                  context, 'Please fill the form correctly!');
+                                context,
+                                'Vui lòng điền vào mẫu một cách chính xác!',
+                              );
                             }
                           }
                         },

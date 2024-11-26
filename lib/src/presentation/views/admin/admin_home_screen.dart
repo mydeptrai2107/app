@@ -35,7 +35,7 @@ class AdminHomeScreen extends StatelessWidget {
               Map<String, String> category = Constants.menuScreenImages[index];
 
               return MenuCategoryContainerAdmin(
-                title: category['category']!,
+                title: category['name']!,
                 category: category['category']!,
                 imageLink: category['image']!,
               );
@@ -90,8 +90,13 @@ class MenuCategoryContainerAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(AppRouteConstants.adminCategoryProductsScreen.name,
-            extra: category);
+        context.pushNamed(
+          AppRouteConstants.adminCategoryProductsScreen.name,
+          extra: {
+            "category": category,
+            "name": title,
+          },
+        );
       },
       child: Container(
         height: 170,

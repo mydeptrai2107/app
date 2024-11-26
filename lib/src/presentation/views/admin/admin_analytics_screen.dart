@@ -35,7 +35,7 @@ class AdminAnalyticsScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'Total Earnings - đ${formatLakhs(state.totalEarnings)}',
+                  'Tổng thu nhập - ${formatLakhs(state.totalEarnings)} đồng',
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),

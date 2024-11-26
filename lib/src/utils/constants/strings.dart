@@ -1,4 +1,4 @@
-const secureUri = 'http://192.168.2.7:3000';
+const secureUri = 'http://192.168.2.16:3000';
 String uri = secureUri;
 
 String signUpUrl = '$uri/api/signup';

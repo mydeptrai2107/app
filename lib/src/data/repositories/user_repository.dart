@@ -3,6 +3,7 @@ import 'package:flutter_amazon_clone_bloc/src/data/datasources/api/user_apis.dar
 import 'package:flutter_amazon_clone_bloc/src/data/models/order.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/product.dart';
 import 'package:flutter_amazon_clone_bloc/src/data/models/user.dart';
+import 'package:flutter_amazon_clone_bloc/src/data/models/voucher.dart';
 import 'package:http/http.dart' as http;
 
 class UserRepository {
@@ -386,6 +387,34 @@ class UserRepository {
   Future getVouchers() async {
     try {
       http.Response res = await userApi.getVouchers();
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        throw Exception(jsonDecode(res.body)['msg']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future addVoucher(Voucher vocuher) async {
+    try {
+      http.Response res = await userApi.addVoucher(vocuher);
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        throw Exception(jsonDecode(res.body)['msg']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future deleteVoucher(String code) async {
+    try {
+      http.Response res = await userApi.deleteVoucher(code);
 
       if (res.statusCode == 200) {
         return jsonDecode(res.body);

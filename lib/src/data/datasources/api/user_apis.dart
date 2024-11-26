@@ -4,6 +4,8 @@ import 'package:flutter_amazon_clone_bloc/src/utils/constants/strings.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/voucher.dart';
+
 class UserApi {
   final client = http.Client();
 
@@ -283,6 +285,50 @@ class UserApi {
     try {
       http.Response res = await client.get(
         Uri.parse(voucherUri),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+      );
+
+      return res;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<http.Response> addVoucher(Voucher vocuher) async {
+    final token = await getToken();
+    try {
+      http.Response res = await client.post(
+        Uri.parse(voucherUri),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+        body: jsonEncode({
+          "code": vocuher.code,
+          "discountType": vocuher.discountType,
+          "discountValue": vocuher.discountValue,
+          "minPurchase": 0,
+          "applicableCategories": [],
+          "expirationDate": vocuher.expirationDate,
+          "usageLimit": vocuher.usageLimit,
+          "usedCount": 0
+        }),
+      );
+
+      return res;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<http.Response> deleteVoucher(String code) async {
+    final token = await getToken();
+    try {
+      http.Response res = await client.delete(
+        Uri.parse('$voucherUri/$code'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token,

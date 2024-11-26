@@ -13,7 +13,12 @@ class VoucherCubit extends Cubit<VoucherState> {
     try {
       var vouchers = await userRepository.getVouchers();
       final list = (vouchers as List).map((e) => Voucher.fromJson(e)).toList();
-      emit(ListVoucherState(vouchers: list));
+      final newList = list
+          .where((e) =>
+              e.expirationDate != null &&
+              DateTime.parse(e.expirationDate!).isAfter(DateTime.now()))
+          .toList();
+      emit(ListVoucherState(vouchers: newList));
     } catch (e) {
       print(e);
     }
@@ -22,6 +27,23 @@ class VoucherCubit extends Cubit<VoucherState> {
   selectVoucher(Voucher voucher) async {
     try {
       emit(SelectedVoucherState(selected: voucher));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future addVoucher(Voucher voucher) async {
+    try {
+      await userRepository.addVoucher(voucher);
+      await getVouchers();
+    } catch (e) {
+      print(e);
+    }
+  }
+  Future deleteVoucher(String code) async {
+    try {
+      await userRepository.deleteVoucher(code);
+      await getVouchers();
     } catch (e) {
       print(e);
     }

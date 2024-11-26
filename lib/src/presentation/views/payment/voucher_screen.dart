@@ -85,6 +85,8 @@ class VoucherScreen extends StatelessWidget {
                               ),
                               FilledButton(
                                 onPressed: () {
+                                  if (item.usageLimit! <= item.usedCount!)
+                                    return;
                                   context
                                       .read<VoucherCubit>()
                                       .selectVoucher(item);
@@ -98,7 +100,9 @@ class VoucherScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  'Áp dụng',
+                                  item.usageLimit! <= item.usedCount!
+                                      ? 'Hết lượt'
+                                      : 'Áp dụng',
                                   style: TextStyle(color: primaryColor),
                                 ),
                               )

@@ -25,7 +25,7 @@ class Voucher {
     discountValue = json['discountValue'];
     minPurchase = json['minPurchase'];
     expirationDate = json['expirationDate'];
-    usageLimit = json['usageLimit'];
-    usedCount = json['usedCount'];
+    usageLimit = json['usageLimit'] ?? 0;
+    usedCount = json['usedCount'] ?? 0;
   }
 }

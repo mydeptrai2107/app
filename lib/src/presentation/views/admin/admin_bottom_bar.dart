@@ -4,6 +4,7 @@ import 'package:flutter_amazon_clone_bloc/src/logic/blocs/admin/admin_bottom_bar
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/user_cubit/user_cubit.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/admin/admin_offers_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/admin/admin_home_screen.dart';
+import 'package:flutter_amazon_clone_bloc/src/presentation/views/admin/admin_vouchers_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,8 @@ class AdminBottomBar extends StatelessWidget {
       const AdminHomeScreen(),
       const AdminAnalyticsScreen(),
       const AdminOffersScreen(),
-      const AdminOrdersScreen()
+      const AdminOrdersScreen(),
+      const AdminVouchersScreen()
     ];
     return BlocBuilder<AdminBottomBarCubit, AdminBottomBarState>(
       builder: (context, state) {
@@ -133,7 +135,15 @@ class AdminBottomBar extends StatelessWidget {
                     ),
                     page: 3,
                     index: state.index,
-                    label: 'Đơn đặt'),
+                    label: 'Đơn hàng'),
+                bottomNavBarItem(
+                    icon: const Icon(
+                      Icons.wallet_giftcard,
+                      size: 26,
+                    ),
+                    page: 4,
+                    index: state.index,
+                    label: 'Vouchers'),
               ],
             ),
           ),
